@@ -4,6 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
+    <bean id="BookType" parent="BookType-parentBean"/>
+    <bean id="BookType-parentBean" abstract="true" parent="DataObjectEntry">
+        <property name="dataObjectClass" value="org.kuali.rice.krtrain.book.BookType"/>
+        <property name="objectLabel" value="Book Type"/>
+        <property name="attributes">
+            <list>
+                <ref bean="BookType-typeCode"/>
+                <ref bean="BookType-name"/>
+                <ref bean="BookType-description"/>
+                <ref bean="BookType-active"/>
+            </list>
+        </property>
+        <property name="titleAttribute" value="name"/>
+    </bean>
+
   <bean id="BookType-typeCode" parent="BookType-typeCode-parentBean"/>
   <bean id="BookType-typeCode-parentBean" abstract="true" parent="AttributeDefinition">
     <property name="name" value="typeCode"/>
