@@ -26,9 +26,9 @@
     <bean name="speaker" class="edu.myedu.sample.Speaker" p:watts="50" p:lowFreq="5"/>
 
     <bean id="Television2" class="edu.myedu.sample.Television" scope="prototype">
-        <constructor-arg><value>LG</value></constructor-arg>
-        <constructor-arg><value>3605-m</value></constructor-arg>
-        <constructor-arg><value>true</value></constructor-arg>
+        <constructor-arg value="LG"/>
+        <constructor-arg value="3605-m"/>
+        <constructor-arg value="true"/>
     </bean>
 
     <bean id="Television3" class="edu.myedu.sample.Television" parent="Television" p:model="8600-t">
