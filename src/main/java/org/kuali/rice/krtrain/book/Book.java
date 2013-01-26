@@ -53,9 +53,11 @@ public class Book extends PersistableBusinessObjectBase {
 
     private Author author;
     private PublisherCode pubCode;
+    private BookType bookType;
 
     private List<IndexEntry> index;
     private List<Book> relatedBooks;
+    private List<Chapter> chapters;
 
     public Book() {
         super();
@@ -66,6 +68,7 @@ public class Book extends PersistableBusinessObjectBase {
         index = new ArrayList<IndexEntry>();
         relatedBooks = new ArrayList<Book>();
         availableFormats = new ArrayList<String>();
+        chapters = new ArrayList<Chapter>();
     }
 
     public Long getId() {
@@ -330,5 +333,21 @@ public class Book extends PersistableBusinessObjectBase {
 
     public void setRelatedBooks(List<Book> relatedBooks) {
         this.relatedBooks = relatedBooks;
+    }
+
+    public BookType getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
     }
 }
