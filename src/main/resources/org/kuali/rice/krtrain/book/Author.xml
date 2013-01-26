@@ -66,6 +66,9 @@
         <property name="required" value="true"/>
         <property name="summary" value="Email identifying the Author."/>
         <property name="description" value="Email identifying the Author."/>
+        <property name="validCharactersConstraint">
+            <bean parent="EmailAddressPatternConstraint"/>
+        </property>
     </bean>
 
     <bean id="Author-phoneNumber" parent="Author-phoneNumber-parentBean"/>
@@ -80,6 +83,9 @@
         <property name="required" value="true"/>
         <property name="summary" value="Name identifying the Author."/>
         <property name="description" value="Name identifying the Author."/>
+        <property name="validCharactersConstraint">
+            <bean parent="PhoneNumberPatternConstraint"/>
+        </property>
     </bean>
 
 </beans>
