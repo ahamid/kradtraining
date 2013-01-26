@@ -4,5 +4,40 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
                     
-                    
+    <bean id="Television" class="edu.myedu.sample.Television"
+          p:brand="LG" p:model="3605-m" p:hdtv="true" p:speaker-ref="speaker" scope="singleton">
+        <property name="supportedFeatures">
+            <list>
+                <value>hdmiInput</value>
+                <value>remote</value>
+                <value>networkConnectivity</value>
+                <value>widescreen</value>
+            </list>
+        </property>
+        <property name="numberMenuOptions">
+            <map>
+                <entry key="display"><value>3</value></entry>
+                <entry key="color"><value>5</value></entry>
+                <entry key="sound"><value>4</value></entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean name="speaker" class="edu.myedu.sample.Speaker" p:watts="50" p:lowFreq="5"/>
+
+    <bean id="Television2" class="edu.myedu.sample.Television" scope="prototype">
+        <constructor-arg><value>LG</value></constructor-arg>
+        <constructor-arg><value>3605-m</value></constructor-arg>
+        <constructor-arg><value>true</value></constructor-arg>
+    </bean>
+
+    <bean id="Television3" class="edu.myedu.sample.Television" parent="Television" p:model="8600-t">
+        <property name="supportedFeatures">
+            <list merge="true">
+                <value>highColor</value>
+            </list>
+        </property>
+    </bean>
+
+
 </beans>                    
