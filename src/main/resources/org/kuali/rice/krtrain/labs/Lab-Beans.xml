@@ -16,9 +16,9 @@
         </property>
         <property name="numberMenuOptions">
             <map>
-                <entry key="display"><value>3</value></entry>
-                <entry key="color"><value>5</value></entry>
-                <entry key="sound"><value>4</value></entry>
+                <entry key="display" value="3"/>
+                <entry key="color" value="5"/>
+                <entry key="sound" value="4"/>
             </map>
         </property>
     </bean>
