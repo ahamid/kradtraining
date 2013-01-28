@@ -36,7 +36,32 @@
         </property>
     </bean>
 
+    <bean id="sharedLabelConfig" parent="Uif-Label" abstract="true" p:renderColon="false" p:align="top"/>
+
     <bean id="Krtrain-BookEntryPage1" parent="Uif-Page">
+        <property name="items">
+            <list>
+                <bean parent="Uif-HorizontalBoxGroup">
+                    <property name="items">
+                        <list>
+                            <bean id="titleLbl" parent="sharedLabelConfig" p:labelText="Book Title" p:labelForComponentId="title"/>
+
+                            <bean id="title" parent="Uif-InputField" p:propertyName="book.title"
+                                  p:fieldLabel.render="false"/>
+                        </list>
+                    </property>
+                </bean>
+
+                            <bean id="typeCodeLbl" parent="sharedLabelConfig" p:labelText="Book Type Code" p:labelForComponentId="typeCode"/>
+                            <bean id="typeCode" parent="Uif-InputField" p:shortLabel="Bk Typ" p:propertyName="book.typeCode"/>
+
+                            <bean id="isbnLbl" parent="sharedLabelConfig" p:labelText="Book ISBN" p:labelForComponentId="isbn"/>
+                            <bean id="isbn" parent="Uif-InputField" p:propertyName="book.isbn"/>
+
+                            <bean id="publisherLbl" parent="sharedLabelConfig" p:labelText="Book Publisher" p:labelForComponentId="publisher"/>
+                            <bean id="publisher" parent="Uif-InputField" p:propertyName="book.publisher"/>
+              </list>
+        </property>
     </bean>
 
     <bean id="Krtrain-BookEntryPage2" parent="Uif-Page">

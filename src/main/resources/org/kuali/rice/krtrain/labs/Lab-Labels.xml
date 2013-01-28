@@ -7,7 +7,7 @@
     <bean parent="Uif-HorizontalBoxGroup">
         <property name="items">
             <list>
-                <bean id="titleLbl" parent=""/>
+                <bean id="titleLbl" parent="Uif-Label" p:labelText="Book Title" p:labelForComponentId="title"/>
 
                 <bean id="title" parent="Uif-InputField" p:propertyName="book.title"
                       p:fieldLabel.render="false"/>
@@ -15,10 +15,33 @@
         </property>
     </bean>
 
-    <bean id="typeCode" parent="Uif-InputField" p:propertyName="book.typeCode"/>
+    <bean parent="Uif-HorizontalBoxGroup">
+        <property name="items">
+            <list>
+                <bean id="typeCodeLbl" parent="Uif-Label" p:labelText="Book Type Code" p:labelForComponentId="typeCode"/>
+                <bean id="typeCode" parent="Uif-InputField" p:shortLabel="Bk Typ" p:propertyName="book.typeCode"/>
+            </list>
+        </property>
+    </bean>
 
-    <bean id="isbn" parent="Uif-InputField" p:propertyName="book.isbn"/>
+    <bean parent="Uif-HorizontalBoxGroup">
+        <property name="items">
+            <list>
+                <bean id="isbnLbl" parent="Uif-Label" p:labelText="Book ISBN" p:labelForComponentId="isbn" p:align="right" p:renderColon="false"/>
+                <bean id="isbn" parent="Uif-InputField" p:propertyName="book.isbn"/>
+            </list>
+        </property>
+    </bean>
 
-    <bean id="publisher" parent="Uif-InputField" p:propertyName="book.publisher"/>
+    <bean parent="Uif-HorizontalBoxGroup">
+        <property name="items">
+            <list>
+                <bean id="publisherLbl" parent="Uif-Label" p:labelText="Book Publisher" p:labelForComponentId="publisher" p:align="top" p:renderColon="false"/>
+                <bean id="publisher" parent="Uif-InputField" p:propertyName="book.publisher"/>
+            </list>
+        </property>
+    </bean>
+
+
 
 </beans>
