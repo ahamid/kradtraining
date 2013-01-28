@@ -22,6 +22,15 @@
 
                             <bean parent="Uif-HeaderTwo" p:headerText="Exercise 9" />
                             <!-- Links for exercise 9 go here -->
+                            <bean parent="Uif-Link" p:linkText="Book Entry" p:target="_self"
+                                  p:href="@{#ConfigProperties['application.url']}/app/bookEntry?viewId=Krtrain-BookEntryViewMenu&amp;methodToCall=start"/>
+                            <bean parent="Uif-Link" p:linkText="Book Type Lookup" p:target="_self"
+                                  p:href="@{#ConfigProperties['application.url']}/kr-krad/lookup?methodToCall=search&amp;dataObjectClassName=org.kuali.rice.krtrain.book.BookType&amp;returnLocation=http://localhost:8080/krtrain/portal.do"/>
+                            <bean parent="Uif-Link" p:linkText="Advanced Book Type Lookup" p:target="_self"
+                                  p:href="@{#ConfigProperties['application.url']}/kr-krad/lookup?viewName=advanced&amp;methodToCall=search&amp;dataObjectClassName=org.kuali.rice.krtrain.book.BookType&amp;returnLocation=http://localhost:8080/krtrain/portal.do"/>
+                            <bean parent="Uif-Link" p:linkText="Book Type Maintenance" p:target="_self"
+                                  p:href="@{#ConfigProperties['application.url']}/kr-krad/maintenance?methodToCall=maintenanceEdit&amp;typeCode=ROM&amp;returnLocation=http://localhost:8080/krtrain/portal.do"/>
+
 
                             <bean parent="Uif-HeaderTwo" p:headerText="Exercise 13" />
                             <bean parent="Uif-Link" p:linkText="Book Proposal with Data" p:target="_self"
