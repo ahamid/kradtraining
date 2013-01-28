@@ -6,7 +6,7 @@
 
 
     <bean id="Krtrain-BookEntryViewMenu" parent="Uif-FormView" p:headerText="Book Entry Menu">
-        <property name="defaultBindingObjectPath" value="book"/>
+        <!-- <property name="defaultBindingObjectPath" value="book"/> -->
         <property name="items">
             <list>
                 <ref bean="Krtrain-BookEntryPage1"/>
@@ -46,36 +46,35 @@
                             <bean id="titleLbl" parent="Uif-Label" p:labelText="Book Title"
                                   p:labelForComponentId="title"/>
 
-                            <bean id="title" parent="Uif-InputField" p:propertyName="title"
+                            <bean id="title" parent="Uif-InputField" p:propertyName="book.title"
                                   p:fieldLabel.render="false"/>
                         </list>
                     </property>
                 </bean>
 
-                <bean id="typeCode" parent="Uif-InputField" p:propertyName="typeCode"
+                <bean id="typeCode" parent="Uif-InputField" p:propertyName="book.typeCode"
                       p:label="Book Type" p:shortLabel="Bk Typ"/>
 
-                 <bean id="isbn" parent="Uif-InputField-LabelRight" p:propertyName="isbn"
+                 <bean id="isbn" parent="Uif-InputField-LabelRight" p:propertyName="book.isbn"
                       p:label="ISBN"/>
 
-                <bean id="publisher" parent="Uif-InputField-LabelTop" p:propertyName="publisher"
+                <bean id="publisher" parent="Uif-InputField-LabelTop" p:propertyName="book.publisher"
                       p:label="Publisher"/>
 
                 <bean id="entryDate" parent="Uif-InputField" p:propertyName="entryDate" p:bindingInfo.bindToForm="true"
 
                       p:label="Entry Date" p:shortLabel="Ent Dt" p:defaultValue="01/03/2013"/>
 
-                <bean id="bindingType" parent="Uif-InputField" p:propertyName="bindingType"
+                <bean id="bindingType" parent="Uif-InputField" p:propertyName="book.bindingType"
                       p:label="Binding Type" p:defaultValueFinderClass="org.kuali.rice.krtrain.finders.DefaultBindingTypeValueFinder"/>
 
-                <bean id="authorName" parent="Uif-InputField" p:propertyName="authorName" p:bindingInfo.bindByNamePrefix="author"
-                      p:label="Author Name"/>
+                <bean id="authorName" parent="Uif-InputField" p:label="Author Name" p:bindingInfo.bindingObjectPath="book.author" p:propertyName="authorName"/>
 
-                <bean id="authorEmail" parent="Uif-InputField" p:label="Author Email" p:bindingInfo.bindByNamePrefix="author" p:propertyName="email"/>
+                <bean id="authorEmail" parent="Uif-InputField" p:label="Author Email" p:bindingInfo.bindByNamePrefix="book.author" p:propertyName="email"/>
 
-                <bean id="nytimesRating" parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
+                <bean id="nytimesRating" parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="book.ratings"
                       p:bindingInfo.bindToMap="true" p:propertyName="NYTIMES" p:label="New York Times Rating"/>
-                <bean id="amazonRating" parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="ratings"
+                <bean id="amazonRating" parent="Uif-InputField" p:bindingInfo.bindByNamePrefix="book.ratings"
                       p:bindingInfo.bindToMap="true" p:propertyName="AMAZON" p:label="Amazon Rating" />
             </list>
         </property>
