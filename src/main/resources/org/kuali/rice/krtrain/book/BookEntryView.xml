@@ -47,20 +47,9 @@
         <property name="additionalScriptFiles" value="@{#ConfigProperties['application.url']}/js/krad-training.js"/>
     </bean>
 
-    <bean id="Krtrain-BookEntryViewTabs" parent="Uif-FormView">
+    <bean id="Krtrain-BookEntryViewTabs" parent="Krtrain-BookEntryViewMenu">
         <property name="headerText" value="Book Entry Menu"/>
         <property name="navigation" ref="Krtrain-BookEntryTabNavigation"/>
-        <!--
-        <property name="page">
-            <bean class="org.kuali.rice.krad.uif.container.PageGroup">
-        -->        <property name="items">
-                    <list>
-                        <ref bean="Krtrain-BookEntryPage1"/>
-                        <ref bean="Krtrain-BookEntryPage2"/>
-                    </list>
-                </property>
-        <!--    </bean>
-        </property> -->
     </bean>
 
     <bean id="Krtrain-BookEntryPage1" parent="Uif-Page">
