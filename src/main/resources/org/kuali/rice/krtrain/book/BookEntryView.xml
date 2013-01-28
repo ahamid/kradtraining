@@ -6,6 +6,18 @@
 
 
     <bean id="Krtrain-BookEntryViewMenu" parent="Uif-FormView" p:headerText="Book Entry Menu">
+        <property name="applicationHeader">
+             <bean parent="Uif-HeaderBase">
+                 <property name="template" value="/WEB-INF/templates/ftl/applicationHeaderNew.ftl"/>
+                 <property name="templateName" value="appheader"/>
+             </bean>
+        </property>
+        <property name="applicationFooter">
+            <bean parent="Uif-FooterBase">
+                <property name="template" value="/WEB-INF/templates/ftl/applicationFooterNew.ftl"/>
+                <property name="templateName" value="appfooter"/>
+            </bean>
+        </property>
         <property name="items">
             <list>
                 <ref bean="Krtrain-BookEntryPage1"/>

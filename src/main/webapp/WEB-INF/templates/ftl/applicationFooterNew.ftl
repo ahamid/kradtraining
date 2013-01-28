@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="span12" style="height:60px">
-                    CUSTOM FOOTER
+                    NEW ALTERNATE CUSTOM FOOTER
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
 
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li>CUSTOM HEADER</li>
+                        <li>NEW ALTERNATE CUSTOM HEADER</li>
                         <li><a href="${ConfigProperties['application.url']}/app/menu?viewId=Krtrain-MenuView&methodToCall=start">Home</a></li>
                         <li><a href="${ConfigProperties['application.url']}/kew/DocumentSearch.do">Doc Search</a></li>
                         <li><a href="${ConfigProperties['application.url']}/kew/ActionList.do">Action List</a></li>
