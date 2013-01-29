@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
@@ -91,6 +92,90 @@
 
                 <bean parent="Uif-InputField" p:propertyName="wearAndTear" p:label="Wear and Tear" p:readOnly="true"
                       p:readOnlyListDisplayType="OL"/>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="publisherCode" p:label="Publisher Code">
+                    <property name="control">
+                        <bean parent="Uif-SmallTextControl" p:minLength="1" p:maxLength="4"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="publisherAddress" p:label="Publisher Address">
+                    <property name="control">
+                        <bean parent="Uif-MediumTextControl" p:watermarkText="street # name"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="publisherState" p:label="Publisher State">
+                    <property name="control">
+                        <bean parent="Uif-TextControl" p:size="2"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="publicationDate" p:label="Publisher Date">
+                    <property name="control">
+                        <bean parent="Uif-DateControl"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="shortSummary" p:label="Short Summary">
+                    <property name="control">
+                        <bean parent="Uif-SmallTextAreaControl"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField-LabelTop" p:propertyName="longSummary" p:label="Long Summary">
+                    <property name="control">
+                        <bean parent="Uif-TextAreaControl" p:cols="80" p:rows="8" p:textExpand="true"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField" p:propertyName="coverImage" p:label="Cover Image">
+                    <property name="control">
+                        <bean parent="Uif-FileControl"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField" p:propertyName="fiction" p:label="Fiction?">
+                    <property name="control">
+                        <bean parent="Uif-CheckboxControl"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField" p:propertyName="availableFormats" p:label="Available Formats">
+                    <property name="control">
+                        <bean parent="Uif-VerticalCheckboxesControl">
+                            <property name="options">
+                                <list>
+                                    <bean parent="Uif-KeyLabelPair" c:key="P" c:value="Printed"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="K" c:value="Kindle"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="A" c:value="AudioBook"/>
+                                </list>
+                            </property>
+                        </bean>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField" p:propertyName="averageReview" p:label="Average Review">
+                    <property name="control">
+                        <bean parent="Uif-HorizontalRadioControl">
+                            <property name="options">
+                                <list>
+                                    <bean parent="Uif-KeyLabelPair" c:key="1" c:value="1 star"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="2" c:value="2 star"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="3" c:value="3 star"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="4" c:value="4 star"/>
+                                    <bean parent="Uif-KeyLabelPair" c:key="5" c:value="5 star"/>
+                                </list>
+                            </property>
+                        </bean>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-InputField" p:propertyName="languages" p:label="Languages" p:optionsFinderClass="org.kuali.rice.krtrain.finders.BookLanguageOptions">
+                    <property name="control">
+                        <bean parent="Uif-MultiSelectControl"/>
+                    </property>
+                </bean>
             </list>
         </property>
     </bean>
