@@ -8,9 +8,9 @@
 
     <bean parent="Uif-InputField" p:propertyName="coverArt" p:label="Cover" p:readOnly="true" p:propertyNamesForAdditionalDisplay="coverArtist"/>
 
-    <bean parent="Uif-InputField" p:propertyName="author.numberWrittenBooks" p:label="Written Books"
+    <bean parent="Uif-InputField" p:propertyName="author.numberWrittenBooks" p:label="Written Books" p:readOnlyDisplaySuffix=" (@{numberPublishedBooks} Published)"
           p:readOnly="true"/>
 
-    <bean parent="Uif-InputField" p:propertyName="wearAndTear" p:label="Wear and Tear" p:readOnly="true"/>
+    <bean parent="Uif-InputField" p:propertyName="wearAndTear" p:label="Wear and Tear" p:readOnly="true" p:readOnlyListDisplayType="sorted"/>
 
 </beans>
