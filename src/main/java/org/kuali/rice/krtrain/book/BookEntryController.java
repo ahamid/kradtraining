@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -201,6 +202,13 @@ public class BookEntryController extends UifControllerBase {
         GlobalVariables.getMessageMap().putInfoForSectionId(KRADConstants.GLOBAL_MESSAGES,
                 "method.invoked", "viewBookEntry");
 
+        return getUIFModelAndView(form);
+    }
+
+    @RequestMapping(params = "methodToCall=viewPublisher")
+    public ModelAndView viewPublisher(@ModelAttribute("KualiForm") BookEntryForm form, BindingResult result,
+                                      /*@RequestParam String format,*/ HttpServletRequest request, HttpServletResponse response) {
+        String format = form.getActionParamaterValue("format");
         return getUIFModelAndView(form);
     }
 }

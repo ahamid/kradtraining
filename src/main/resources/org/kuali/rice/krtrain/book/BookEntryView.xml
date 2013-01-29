@@ -210,6 +210,28 @@
                     </property>
                     <property name="optionsFinderClass" value="org.kuali.rice.krtrain.finders.BookLanguageOptions"/>
                 </bean>
+
+                <bean parent="Uif-PrimaryActionButton" p:actionLabel="Save Book" p:methodToCall="saveBook"/>
+
+                <bean parent="Uif-ActionLink" p:actionLabel="View More Rating" p:methodToCall="viewRatings"/>
+
+                <bean id="viewAuthorBooksImg" parent="Uif-ActionImage" p:methodToCall="viewAuthorBooks">
+                    <property name="actionImage">
+                        <bean parent="Uif-Image" p:source="@{#ConfigProperties['application.url']}/images/book.png"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-SecondaryActionButton" p:actionLabel="View Author Books" p:methodToCall="viewAuthorBooks">
+                    <property name="actionImage">
+                        <bean parent="Uif-Image" p:source="@{#ConfigProperties['application.url']}/images/book.png" p:align="right"/>
+                    </property>
+                </bean>
+
+                <bean parent="Uif-PrimaryActionButton-Small" p:actionLabel="publisher details" p:methodToCall="viewPublisher" p:actionParameters="format:detail"/>
+                <bean parent="Uif-PrimaryActionButton-Small" p:actionLabel="publisher summary" p:methodToCall="viewPublisher" p:actionParameters="format:summary"/>
+
+                <bean parent="Uif-PrimaryActionButton" p:actionLabel="Clear Form" p:actionScript="clearForm()"/>
+
             </list>
         </property>
     </bean>

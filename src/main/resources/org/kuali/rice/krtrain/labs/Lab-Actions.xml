@@ -4,4 +4,22 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
+    <bean parent="Uif-PrimaryActionButton" p:actionLabel="Save Book" p:methodToCall="saveBook"/>
+
+    <bean parent="Uif-ActionLink" p:actionLabel="View More Rating" p:methodToCall="viewRatings"/>
+
+    <bean id="viewAuthorBooksImg" parent="Uif-ActionImage" p:actionImage="@{#ConfigProperties['application.url']}/images/book.png"
+          p:methodToCall="viewAuthorBooks"/>
+
+    <bean parent="Uif-SecondaryActionButton" p:actionLabel="View Author Books" p:methodToCall="viewAuthorBooks">
+        <property name="actionImage">
+            <bean parent="Uif-Image" p:source="@{#ConfigProperties['application.url']}/images/book.png" p:align="right"/>
+        </property>
+    </bean>
+
+    <bean parent="Uif-PrimaryActionButton-Small" p:actionLabel="publisher details" p:methodToCall="viewPublisher" p:actionParameters="format:detail"/>
+    <bean parent="Uif-PrimaryActionButton-Small" p:actionLabel="publisher summary" p:methodToCall="viewPublisher" p:actionParameters="format:summary"/>
+
+    <bean parent="Uif-PrimaryActionButton" p:actionLabel="Clear Form" p:actionScript="clearForm()"/>
+
 </beans>
