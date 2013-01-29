@@ -264,6 +264,12 @@
                         </list>
                     </property>
                 </bean>
+
+                <bean parent="Uif-LinkField" p:href="http://en.wikipedia.org/wiki/List_of_English-language_book_publishing_companies" p:linkText="List of Publishers">
+                    <property name="lightBox">
+                        <bean parent="Uif-LightBox"/>
+                    </property>
+                </bean>
             </list>
         </property>
     </bean>
