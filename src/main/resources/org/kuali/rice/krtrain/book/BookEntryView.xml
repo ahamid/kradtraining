@@ -254,6 +254,8 @@
 
                 <bean parent="Uif-PrimaryActionButton" p:methodToCall="cancel" p:actionLabel="cancel"
                       p:performDirtyValidation="true"/>
+
+                <bean parent="Uif-ImageField" p:source="@{#ConfigProperties['application.url']}/images/publisher.png" p:altText="publisher logo" p:image.cssClasses="border-photo" p:captionHeaderText="Publisher Logo" p:cutlineText="logo created by entangled publishing, 2013"/>
             </list>
         </property>
     </bean>
