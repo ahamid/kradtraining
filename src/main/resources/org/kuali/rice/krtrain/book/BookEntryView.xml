@@ -5,7 +5,8 @@
                     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 
-    <bean id="Krtrain-BookEntryViewMenu" parent="Uif-FormView" p:headerText="Book Entry Menu">
+    <bean id="Krtrain-BookEntryViewMenu" parent="Uif-FormView" p:headerText="Book Entry Menu"
+          p:help.externalHelpUrl="https://wiki.kuali.org" p:help.tooltipHelpContent="Help for Book Entry">
         <property name="items">
             <list>
                 <ref bean="Krtrain-BookEntryPage1"/>
@@ -178,7 +179,8 @@
                 </bean>
 
                 <bean id="isbn" parent="Uif-InputField-LabelRight" p:propertyName="isbn"
-                      p:label="ISBN" p:instructionalText="Please enter the [b]newest ISBN[/b] number available"/>
+                      p:label="ISBN" p:instructionalText="Please enter the [b]newest ISBN[/b] number available"
+                        p:help.tooltipHelpContent="Search &lt;a href=http://www.google.com&gt;google.com&lt;/a&gt; for ISBN codes"/>
 
                 <bean parent="Uif-DataField" p:propertyName="entryDate" p:bindingInfo.bindToForm="true"
                       p:label="Entry Date" p:defaultValue="01/03/2013"/>
@@ -271,6 +273,10 @@
 
     <bean id="formats" parent="Uif-HorizontalBoxSection" p:headerText="Formats"
           p:layoutManager.itemStyleClasses="border-group">
+
+        <property name="help.helpDefinition">
+            <bean parent="HelpDefinition" p:parameterNamespace="KR-SAP" p:parameterDetailType="BookEntry" p:parameterName="FormatsHelpUrl"/>
+        </property>
         <property name="items">
             <list>
                 <bean parent="Uif-InputField" p:propertyName="fiction" p:label="Fiction?">
@@ -548,7 +554,7 @@
                 <bean parent="Uif-DataField" p:propertyName="title"/>
                 <bean parent="Uif-DataField" p:propertyName="typeCode"
                       p:dictionaryObjectEntry="org.kuali.rice.krtrain.book.BookType"/>
-                <bean parent="Uif-DataField" p:propertyName="isbn"/>
+                <bean parent="Uif-DataField" p:propertyName="isbn" p:help.tooltipHelpContent="Search &lt;a href=http://www.google.com&gt;google.com&lt;/a&gt; for ISBN codes"/>
                 <bean parent="Uif-DataField" p:propertyName="publisher"/>
                 <bean parent="Uif-DataField" p:propertyName="publicationDate"/>
                 <bean parent="Uif-DataField" p:propertyName="price"/>
