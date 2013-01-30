@@ -581,8 +581,8 @@
                 <bean parent="Uif-InputField" p:propertyName="pageNumbers"/>
             </list>
         </property>
-        <property name="layoutManager.wrapperGroup.layoutManager">
-            <bean parent="Uif-HorizontalBoxLayout"/>
+        <property name="layoutManager">
+            <bean parent="Uif-StackedCollectionLayout-WithBoxItems"/>
         </property>
     </bean>
 
