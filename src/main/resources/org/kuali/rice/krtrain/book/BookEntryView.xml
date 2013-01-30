@@ -110,6 +110,13 @@
           p:source="@{#ConfigProperties['application.url']}/images/copyright.png"/>
 
     <bean id="Krtrain-BookEntryPage2" parent="Uif-Page">
+        <property name="items">
+            <list>
+                <ref bean="chapters"/>
+                <ref bean="relatedBooks"/>
+                <ref bean="index"/>
+            </list>
+        </property>
     </bean>
 
     <bean id="Krtrain-BookEntryMenuNavigation" parent="Uif-MenuNavigationGroup">
@@ -485,4 +492,84 @@
         </property>
     </bean>
 
+
+    <bean id="chapters" parent="Uif-Disclosure-StackedCollectionSection"
+          p:headerText="Chapters" p:propertyName="chapters"
+          p:collectionObjectClass="org.kuali.rice.krtrain.book.Chapter"
+          p:renderSaveLineActions="true">
+        <property name="items">
+            <list>
+                <bean parent="Uif-InputField" p:propertyName="number"/>
+
+                <bean parent="Uif-InputField" p:propertyName="title"/>
+
+                <bean parent="Uif-InputField" p:propertyName="part"/>
+
+                <bean parent="Uif-InputField" p:propertyName="numberPages"/>
+
+                <bean parent="Uif-InputField" p:propertyName="recap"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="relatedBooks" parent="Uif-Disclosure-StackedCollectionSection"
+          p:headerText="Related Books" p:propertyName="relatedBooks"
+          p:collectionObjectClass="org.kuali.rice.krtrain.book.Book"
+          p:subCollections-ref="relatedBookChapters" p:displayCollectionSize="3"
+          p:addLabel="Add Related Book">
+        <property name="items">
+            <list>
+                <bean parent="Uif-InputField" p:propertyName="id"/>
+                <bean parent="Uif-InputField" p:propertyName="title" p:dictionaryObjectEntry="org.kuali.rice.krtrain.book.BookType"/>
+                <bean parent="Uif-InputField" p:propertyName="typeCode"/>
+                <bean parent="Uif-InputField" p:propertyName="isbn"/>
+                <bean parent="Uif-InputField" p:propertyName="publisher"/>
+                <bean parent="Uif-InputField" p:propertyName="publicationDate"/>
+                <bean parent="Uif-InputField" p:propertyName="price"/>
+            </list>
+        </property>
+        <property name="lineActions">
+            <list>
+                <bean parent="Uif-SecondaryActionButton-Small" p:actionLabel="view book entry" p:methodToCall="viewBookEntry" p:actionParameters="id:@{#line.id}" />
+            </list>
+        </property>
+
+        <property name="addLineItems">
+            <list>
+                <bean parent="Uif-InputField" p:propertyName="id">
+                    <property name="control">
+                        <bean parent="Uif-TextControl" p:size="3"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="relatedBookChapters" parent="Uif-Disclosure-StackedSubCollection-WithinSection"
+          p:disclosure.defaultOpen="false" p:headerText="Chapters" p:propertyName="chapters"
+          p:collectionObjectClass="org.kuali.rice.krtrain.book.Chapter" p:readOnly="true"
+            >
+        <property name="items">
+            <list>
+                <bean parent="Uif-InputField" p:propertyName="number"/>
+                <bean parent="Uif-InputField" p:propertyName="title"/>
+                <bean parent="Uif-InputField" p:propertyName="part"/>
+                <bean parent="Uif-InputField" p:propertyName="numberPages"/>
+                <bean parent="Uif-InputField" p:propertyName="recap"/>
+
+            </list>
+        </property>
+    </bean>
+
+    <bean id="index" parent="Uif-Disclosure-StackedCollectionSection" p:headerText="Index" p:propertyName="index"
+          p:collectionObjectClass="org.kuali.rice.krtrain.book.IndexEntry">
+        <property name="addLinePlacement" value="BOTTOM"/>
+        <property name="renderAddBlankLineButton" value="true"/>
+        <property name="items">
+            <list>
+                <bean parent="Uif-InputField" p:propertyName="term"/>
+                <bean parent="Uif-InputField" p:propertyName="pageNumbers"/>
+            </list>
+        </property>
+    </bean>
 </beans>                    
