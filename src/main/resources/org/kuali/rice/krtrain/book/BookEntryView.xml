@@ -199,9 +199,14 @@
                 <bean parent="Uif-InputField" p:propertyName="edition" p:label="Edition"
                       p:propertyEditorClass="org.kuali.rice.krtrain.editors.EditionPropertyEditor"/>
 
-                <bean parent="Uif-InputField" p:propertyName="shortSummary" p:label="Short Summary">
+                <bean parent="Uif-InputField" p:propertyName="shortSummary" p:label="Short Summary"
+
+                        p:help.tooltipHelpContent="Please use the long summary field for a longer description">
                     <property name="control">
                         <bean parent="Uif-SmallTextAreaControl"/>
+                    </property>
+                    <property name="toolTip">
+                        <bean parent="Uif-TooltipFocus"/>
                     </property>
                 </bean>
 
@@ -368,11 +373,18 @@
                         <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="viewPublisher"
                               p:actionLabel="publisher summary" p:actionParameters="format:summary"
                               p:refreshId="publisherGroup"
-                              p:successCallback="alert('publisher information retrieved');"/>
-
+                              p:successCallback="alert('publisher information retrieved');">
+                            <property name="toolTip">
+                                <bean parent="Uif-TooltipHelp" p:tooltipContent="See a summary of this publisher"/>
+                            </property>
+                        </bean>
                         <bean parent="Uif-PrimaryActionButton-Small" p:methodToCall="viewPublisher"
                               p:actionLabel="publisher details" p:actionParameters="format:detail"
-                              p:refreshId="publisherGroup"/>
+                              p:refreshId="publisherGroup">
+                            <property name="toolTip">
+                                <bean parent="Uif-TooltipHelp" p:tooltipContent="See all details for this publisher"/>
+                            </property>
+                        </bean>
                     </list>
                 </property>
             </bean>
