@@ -556,7 +556,7 @@
 
     <bean id="relatedBookChapters" parent="Uif-Disclosure-StackedSubCollection-WithinSection" p:headerText="Chapters"
           p:propertyName="chapters" p:collectionObjectClass="org.kuali.rice.krtrain.book.Chapter"
-          p:disclosure.defaultOpen="false" p:readOnly="true">
+          p:disclosure.defaultOpen="false" p:readOnly="true" p:layoutManager.summaryTitle="@{#line.number} - @{#line.title}">
         <property name="items">
             <list>
                 <bean parent="Uif-DataField" p:propertyName="number"/>
@@ -570,12 +570,16 @@
 
     <bean id="index" parent="Uif-Disclosure-StackedCollectionSection" p:headerText="Index" p:propertyName="index"
           p:collectionObjectClass="org.kuali.rice.krtrain.book.IndexEntry"
-          p:renderAddBlankLineButton="true" p:addLinePlacement="BOTTOM">
+          p:renderAddBlankLineButton="true" p:addLinePlacement="BOTTOM"
+          p:layoutManager.summaryTitle="term" p:layoutManager.summaryFields="term">
         <property name="items">
             <list>
                 <bean parent="Uif-InputField" p:propertyName="term"/>
                 <bean parent="Uif-InputField" p:propertyName="pageNumbers"/>
             </list>
+        </property>
+        <property name="layoutManager.wrapperGroup.layoutManager">
+            <bean parent="Uif-HorizontalBoxLayout"/>
         </property>
     </bean>
 
