@@ -566,6 +566,9 @@
                 <bean parent="Uif-DataField" p:propertyName="recap"/>
             </list>
         </property>
+        <property name="layoutManager.wrapperGroup">
+            <bean parent="Uif-GridGroup" p:layoutManager.numberOfColumns="3" p:layoutManager.renderAlternatingHeaderColumns="false"/>
+        </property>
     </bean>
 
     <bean id="index" parent="Uif-Disclosure-StackedCollectionSection" p:headerText="Index" p:propertyName="index"
