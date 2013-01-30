@@ -496,7 +496,8 @@
 
     <bean id="chapters" parent="Uif-Disclosure-TableCollectionSection" p:headerText="Chapters" p:propertyName="chapters"
           p:collectionObjectClass="org.kuali.rice.krtrain.book.Chapter" p:renderSaveLineActions="true"
-          p:layoutManager.renderSequenceField="false">
+          p:layoutManager.renderSequenceField="false"
+          p:layoutManager.groupingPropertyNames="part">
         <property name="items">
             <list>
                 <bean parent="Uif-InputField" p:propertyName="number"/>
@@ -506,18 +507,25 @@
                 <bean parent="Uif-InputField" p:propertyName="recap"/>
             </list>
         </property>
+        <property name="layoutManager.columnCalculations">
+            <list>
+                <bean parent="Uif-ColumnCalculationInfo-Sum" p:propertyName="numberPages" p:showGroupTotal="true"/>
+            </list>
+        </property>
+
+        <property name="layoutManager.actionFieldPrototype.group.layoutManager">
+            <bean parent="Uif-VerticalBoxLayout"/>
+        </property>
     </bean>
 
     <bean id="relatedBooks" parent="Uif-Disclosure-TableCollectionSection" p:headerText="Related Books"
           p:propertyName="relatedBooks" p:collectionObjectClass="org.kuali.rice.krtrain.book.Book"
           p:displayCollectionSize="3" p:addLineLabel.labelText="Add Related Book"
           p:layoutManager.generateAutoSequence="true"
-          p:layoutManager.actionColumnPlacement="left"
+          p:layoutManager.actionColumnPlacement="LEFT"
           p:layoutManager.separateAddLine="true"
           p:layoutManager.showToggleAllDetails="true"
-          p:layoutManager.expandDetailsActionPrototype.label="Chapter"
-          p:layoutManager.columnsToCalculate="numberPages"
-          p:layoutManager.groupingPropertyNames="part">
+          p:layoutManager.expandDetailsActionPrototype.actionLabel="Chapter">
         <property name="addLineItems">
             <list>
                 <bean parent="Uif-InputField" p:propertyName="id">
@@ -554,14 +562,7 @@
         <property name="layoutManager.rowDetailsGroup">
             <bean parent="relatedBookChapters" p:disclosure.render="false"/>
         </property>
-        <property name="layoutManager.columnCalculations">
-            <list>
-                <bean parent="Uif-ColumnCalculationInfo" p:propertyName="numberPages" p:showGroupTotal="true"/>
-            </list>
-        </property>
-        <property name="layoutManager.actionFieldPrototype.layoutManager">
-            <bean parent="Uif-VerticalBoxLayout"/>
-        </property>
+
     </bean>
 
     <bean id="relatedBookChapters" parent="Uif-Disclosure-StackedSubCollection-WithinSection" p:headerText="Chapters"
