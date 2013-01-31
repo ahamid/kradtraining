@@ -548,7 +548,8 @@
                                         <bean parent="Uif-Link" p:linkText="Linkedin" p:target="_blank"
                                               p:href="http://www.linkedin.com"/>
 
-                                        <bean parent="Uif-Link" p:linkText="Link Not Set" p:target="_blank"/>
+                                        <bean parent="Uif-Link" p:linkText="Link Not Set" p:target="_blank"
+                                              p:finalizeMethodToCall="setupAuthorBlogLink"/>
                                     </list>
                                 </property>
                             </bean>
