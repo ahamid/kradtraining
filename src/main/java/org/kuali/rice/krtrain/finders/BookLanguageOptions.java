@@ -25,7 +25,7 @@ public class BookLanguageOptions extends UifKeyValuesFinderBase {
 
         Book book = ((BookEntryForm) model).getBook();
 
-        if (book.getAvailableFormats().contains("K")) {
+        if (book != null && book.getAvailableFormats() != null && book.getAvailableFormats().contains("K")) {
             options.add(new ConcreteKeyValue("G", "German"));
             options.add(new ConcreteKeyValue("F", "French"));
             options.add(new ConcreteKeyValue("S", "Spanish"));
