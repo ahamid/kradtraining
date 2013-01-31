@@ -282,6 +282,16 @@
                 </bean>
 
                 <bean parent="Uif-InputField" p:propertyName="averageReview" p:label="Average Review">
+                    <property name="propertyReplacers">
+                        <list>
+                            <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="control"
+                                  p:condition="@{expertEntry}">
+                                <property name="replacement">
+                                    <bean parent="Uif-TextControl" p:size="3"/>
+                                </property>
+                            </bean>
+                        </list>
+                    </property>
                     <property name="control">
                         <bean parent="Uif-HorizontalRadioControl">
                             <property name="options">
@@ -345,6 +355,14 @@
 
     <bean id="publisherGroup" parent="Uif-VerticalBoxSection" p:headerText="Publisher Information"
           p:instructionalText="If no publisher information is available this section may be left blank.">
+        <property name="propertyReplacers">
+            <list>
+                <bean parent="Uif-ConditionalBeanPropertyReplacer" p:propertyName="instructionalText"
+                      p:condition="@{expertEntry}">
+                    <property name="replacement" value="Enter the usual publisher"/>
+                </bean>
+            </list>
+        </property>
         <property name="header.rightGroup">
             <bean parent="Uif-HeaderRightGroup">
                 <property name="items">
