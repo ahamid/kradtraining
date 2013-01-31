@@ -1,0 +1,38 @@
+/**
+ */
+public class TestBean {
+    private String string;
+    private TestBean childA;
+    private TestBean childB;
+
+    public TestBean() {}
+
+    public TestBean(String string) {
+        this.string = string;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
+    }
+
+    public TestBean getChildA() {
+        return childA;
+    }
+
+    public void setChildA(TestBean childA) {
+        this.childA = childA;
+    }
+
+    public TestBean getChildB() {
+        return childB;
+    }
+
+    public void setChildB(TestBean childB) {
+        this.childB = childB;
+    }
+}
+

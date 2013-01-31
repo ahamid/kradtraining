@@ -1,0 +1,15 @@
+{
+
+    testBean: {
+        _class: "TestBean",
+        "constructor-arg": "Hola!",
+        childA: {
+            _class: "TestBean",
+            string: "childA"
+        },
+        childB: {
+            _class: "TestBean",
+            string: "childB"
+        }
+    }
+}

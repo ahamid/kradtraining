@@ -1,0 +1,20 @@
+{
+    name: "beans",
+    children: [
+        {
+            name: "bean",
+            attributes: [
+                { name: "name", $: "testBean" },
+                { name: "class", $: "TestBean" }
+            ],
+            children: [
+                {
+                    name: "constructor-arg",
+                    attributes: [
+                        { name: "value", $: "Hola!" }
+                    ]
+                }
+            ]
+        }
+    ]
+}
