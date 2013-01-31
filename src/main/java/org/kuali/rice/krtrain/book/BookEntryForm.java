@@ -14,11 +14,12 @@ public class BookEntryForm extends UifFormBase {
 
     private Book book;
     private Date entryDate;
+    private boolean auditMode;
+
     private BookEntryFormat format;
 
     public BookEntryForm() {
         super();
-
         format = new BookEntryFormat();
     }
 
@@ -38,11 +39,20 @@ public class BookEntryForm extends UifFormBase {
         this.entryDate = entryDate;
     }
 
+
     public BookEntryFormat getFormat() {
         return format;
     }
 
     public void setFormat(BookEntryFormat format) {
         this.format = format;
+    }
+
+    public boolean isAuditMode() {
+        return auditMode;
+    }
+
+    public void setAuditMode(boolean auditMode) {
+        this.auditMode = auditMode;
     }
 }

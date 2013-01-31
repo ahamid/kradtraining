@@ -165,6 +165,12 @@
 
     <bean id="generalInformation" parent="Uif-GridSection" p:headerText="General Information - @{#dp.isbn}"
           p:layoutManager.numberOfColumns="4">
+        <property name="componentModifiers">
+            <list merge="true">
+                <bean class="org.kuali.rice.krtrain.component.AuditFieldModifier" p:runPhase="FINALIZE"
+                      p:runCondition="@{auditMode}"/>
+            </list>
+        </property>
         <property name="items">
             <list>
                 <bean id="title" parent="Uif-InputField" p:propertyName="title" p:label="Book Title"/>
