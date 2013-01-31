@@ -3,13 +3,25 @@
     testBean: {
         _class: "TestBean",
         "constructor-arg": "Hola!",
-        childA: {
-            _class: "TestBean",
-            string: "childA"
-        },
-        childB: {
-            _class: "TestBean",
-            string: "childB"
+        childA: { _ref: "childADef" },
+        childB: { _ref: "childBDef" }
+    },
+
+    childADef: {
+        _class: "TestBean",
+        string: "childA",
+        map: {
+            color: "red",
+            shape: "square"
         }
+    },
+    childBDef: {
+        _class: "TestBean",
+        string: "childB",
+        list: [
+            "foo",
+            "bar",
+            { _ref: "childADef" }
+        ]
     }
 }
