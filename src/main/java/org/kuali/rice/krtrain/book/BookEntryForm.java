@@ -15,8 +15,11 @@ public class BookEntryForm extends UifFormBase {
     private Book book;
     private Date entryDate;
 
+    private BookEntryFormat format;
+
     public BookEntryForm() {
         super();
+        format = new BookEntryFormat();
     }
 
     public Book getBook() {
@@ -34,4 +37,14 @@ public class BookEntryForm extends UifFormBase {
     public void setEntryDate(Date entryDate) {
         this.entryDate = entryDate;
     }
+
+
+    public BookEntryFormat getFormat() {
+        return format;
+    }
+
+    public void setFormat(BookEntryFormat format) {
+        this.format = format;
+    }
+
 }
