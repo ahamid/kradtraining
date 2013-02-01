@@ -165,10 +165,18 @@ public class BookEntryController extends UifControllerBase {
     public ModelAndView saveBook(@ModelAttribute("KualiForm") BookEntryForm form, BindingResult result,
                                  HttpServletRequest request, HttpServletResponse response) {
 
-        GlobalVariables.getMessageMap().putInfoForSectionId(KRADConstants.GLOBAL_MESSAGES,
-                "method.invoked", "saveBook");
+        if (!hasDialogBeenDisplayed("saveOverrideDialog", form)) {
+            return showDialog("saveOverrideDialog", form, request, response);
+        } else {
+            if (hasDialogBeenAnswered("saveOverrideDialog", form)) {
+                if (getBooleanDialogResponse("saveOverrideDialog", form, request, response)) {
+                    GlobalVariables.getMessageMap().putInfoForSectionId(KRADConstants.GLOBAL_MESSAGES,
+                            "method.invoked", "saveBook");
 
-        GlobalVariables.getMessageMap().addGrowlMessage("Save Action", "book.saved", form.getBook().getTitle());
+                    GlobalVariables.getMessageMap().addGrowlMessage("Save Action", "book.saved", form.getBook().getTitle());
+                }
+            }
+        }
 
         return getUIFModelAndView(form);
     }
