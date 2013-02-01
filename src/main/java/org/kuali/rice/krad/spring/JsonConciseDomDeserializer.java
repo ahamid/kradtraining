@@ -1,6 +1,7 @@
 package org.kuali.rice.krad.spring;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
@@ -138,8 +139,26 @@ public class JsonConciseDomDeserializer extends DomElementJsonDeserializer {
         }
     }
 
-    protected Element parseArray(Document document, ArrayNode node) {
+    protected Element parseArray(Document document, JsonNode node) {
+       return parseArray(document, node, false);
+    }
+
+    protected Element parseArray(Document document, JsonNode node, boolean merge) {
         Element list = document.createElementNS(NS, "list");
+
+        if (node instanceof ObjectNode) {
+            if (node.get("merge") != null) {
+                merge = Boolean.valueOf(node.get("merge").getTextValue());
+            }
+            node = node.get("values");
+        }
+
+        if (merge) {
+            list.setAttribute("merge", "true");
+        }
+
+        assertNodeType(node, ArrayNode.class);
+
         Iterator<JsonNode> items = node.getElements();
         while (items.hasNext()) {
             list.appendChild(parseNode(document, items.next(), null));
@@ -148,10 +167,23 @@ public class JsonConciseDomDeserializer extends DomElementJsonDeserializer {
     }
 
     protected Element parseMap(Document document, ObjectNode node) {
+        return parseMap(document, node, false);
+    }
+
+    protected Element parseMap(Document document, ObjectNode node, boolean merge) {
         Element map = document.createElementNS(NS, "map");
-        Iterator<Map.Entry<String, JsonNode>> entries = node.getFields();
-        while (entries.hasNext()) {
-            Map.Entry<String, JsonNode> entryField = entries.next();
+
+        Collection<Map.Entry<String, JsonNode>> entries = Lists.newArrayList(node.getFields());
+        if (entries.size() == 2 && node.get("values") != null && node.get("merge") != null) {
+            merge = Boolean.valueOf(node.get("merge").getTextValue());
+            entries = Lists.newArrayList(node.get("values").getFields());
+        }
+
+        if (merge) {
+            map.setAttribute("merge", "true");
+        }
+
+        for (Map.Entry<String, JsonNode> entryField: entries) {
             Element entry = document.createElementNS(NS, "entry");
             entry.setAttribute("key", entryField.getKey());
             entry.appendChild(parseNode(document, entryField.getValue(), entryField.getKey()));
@@ -174,10 +206,16 @@ public class JsonConciseDomDeserializer extends DomElementJsonDeserializer {
             JsonNode node = jsonNode.get("map");
             assertNodeType(node, ObjectNode.class);
             return parseMap(document, (ObjectNode) node);
+        } else if (fields.size() == 1 && jsonNode.get("merge-map") != null) {
+            JsonNode node = jsonNode.get("map");
+            assertNodeType(node, ObjectNode.class);
+            return parseMap(document, (ObjectNode) node, true);
         } else if (fields.size() == 1 &&  jsonNode.get("list") != null) {
             JsonNode node = jsonNode.get("list");
-            assertNodeType(node, ArrayNode.class);
-            return parseArray(document, (ArrayNode) node);
+            return parseArray(document, node);
+        } else if (fields.size() == 1 &&  jsonNode.get("merge-list") != null) {
+            JsonNode node = jsonNode.get("list");
+            return parseArray(document, node, true);
         } else {
             if (jsonNode.get("_class") != null || jsonNode.get("_parent") != null) {
                 return parseBean(document, jsonNode, name);

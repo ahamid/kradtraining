@@ -1,4 +1,7 @@
 {
+
+    "Uif-FormView": { _class: "java.lang.String" },
+
     "Krtrain-BookEntryViewMenu": {
         _parent: "Uif-FormView",
         headerText: "Book Entry Menu",
@@ -147,6 +150,289 @@
     generalInformation: {
         _parent: "Uif-GridSection",
         headerText: "General Information - @{#dp.isbn}",
-        "layoutManager.numberOfColumns": "4"
+        "layoutManager.numberOfColumns": "4",
+        "items":
+            [
+                { _id: "title", _parent: "Uif-InputField", propertyName: "title", label: "Book Title"},
+                { _id: "typeCode", _parent: "Uif-InputField", propertyName: "typeCode", dictionaryObjectEntry: "org.kuali.rice.krtrain.book.BookType",
+                 propertyNamesForAdditionalDisplay: "bookType.description",
+                    quickfinder: {_parent: "Uif-QuickFinder", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType", fieldConversions: "typeCode:typeCode",
+                        "inquiry":
+                            {_parent: "Uif-Inquiry", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
+                            , inquiryParameters: "typeCode:typeCode", enableDirectInquiry: "true"}
+                    }
+                },
+                { _id: "attributeQuery",
+                  _parent: "Uif-AttributeQueryConfig"
+                , dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
+                , queryFieldMapping: "typeCode:typeCode"
+                , returnFieldMapping: "description:bookType.description"
+                },
+                { _id: "isbn", _parent: "Uif-InputField-LabelRight", propertyName: "isbn", label: "ISBN", instructionalText: "Please enter the [b]newest ISBN[/b] number available",
+                    "help": {
+                        _parent: "Uif-Help", "tooltipHelpContent": "Search &lt;a href=http://www.google.com&gt;google.com&lt;/a&gt; for ISBN codes"
+                    }
+                },
+                {_parent: "Uif-DataField", propertyName: "entryDate", "bindingInfo.bindToForm": "true", label: "Entry Date", defaultValue: "01/03/2013"},
+                {_parent: "Uif-InputField", propertyName: "edition", label: "Edition"
+                , propertyEditorClass: "org.kuali.rice.krtrain.editors.EditionPropertyEditor"
+                , onMouseOverScript: "jQuery(this).stop().css({'color':'#FFF2A8','fontSize':'15px'});"
+                , onMouseOutScript: "jQuery(this).stop().css({'color':'black','fontSize':'11px'});"
+                , readOnly: "true"},
+                {_parent: "Uif-InputField", propertyName: "shortSummary", label: "Short Summary",
+                    "control": {_parent: "Uif-SmallTextAreaControl",
+                        "toolTip": {_parent: "Uif-Tooltip", onFocus: "true", onMouseHover: "false"
+                        , tooltipContent: "Please use the long summary field for a longer description"
+                         }
+                    }
+                },
+                {_parent: "Uif-InputField", propertyName: "longSummary", label: "Long Summary", colSpan: "3",
+                    "control": { _parent: "Uif-TextAreaControl", rows: "@{format.summaryRows}", cols: "80", textExpand: "true" }
+                }
+            ],
+        "componentModifiers": {
+            list: {
+                merge: "true",
+                values: [
+                    { _class: "org.kuali.rice.krtrain.component.AuditFieldModifier", runPhase: "FINALIZE", runCondition: "@{auditMode}"}
+                ]
+            }
+        }
+    },
+
+    bookCondition: { _parent: "Uif-GridSection", headerText: "Book Condition"
+        , "layoutManager.numberOfColumns": "4", progressiveRender: "@{!#empty(#dp.title)}"
+         , progressiveRenderViaAJAX: "true",
+        "items":
+            [
+                { _parent: "Uif-InputField", propertyName: "bindingType", label: "Binding Type"
+                , defaultValueFinderClass: "org.kuali.rice.krtrain.finders.DefaultBindingTypeValueFinder",
+                  "control":
+                    {_parent: "Uif-MediumTextControl", disabled: "@{#dp.fiction}"}
+
+                },
+
+                { _parent: "Uif-InputField", propertyName: "wearAndTear", label: "Wear and Tear", readOnly: "true", readOnlyListDisplayType: "OL", "fieldLabel.rowSpan": "2", rowSpan: "2"},
+
+                { _parent: "Uif-VerticalFieldGroup", label: "Cover",
+                "items":
+                    [
+                        {_parent: "Uif-InputField", propertyName: "coverArt", readOnly: "true", readOnlyDisplaySuffixPropertyName: "coverArtist"},
+
+                        {_parent: "Uif-InputField", propertyName: "coverImage",
+                            "control":
+                               {_parent: "Uif-FileControl"}
+
+                        }
+                    ]
+                }
+            ]
+    },
+    
+    "ratings": {
+        _parent: "Uif-GridSection", headerText: "Ratings", render: "@{!format.hideRatings}",
+        items:
+        [
+            {
+                _parent: "Uif-GridFieldGroup", label: "Ratings", "group.layoutManager.numberOfColumns": "1",
+                items:
+                    [
+                        {_parent: "Uif-InputField", "bindingInfo.bindByNamePrefix": "ratings"
+                        , "bindingInfo.bindToMap": "true", propertyName: "NYTIMES"
+                        , label: "[link=http://www.nytimes.com]New York Times[/link] Rating"},
+
+                        {_parent: "Uif-InputField", "bindingInfo.bindByNamePrefix": "ratings"
+                        , "bindingInfo.bindToMap": "true", propertyName: "AMAZON"
+                        , label: "[link=http://amazon.com]Amazon[/link] Rating"},
+
+                        {_parent: "Uif-ActionLink", methodToCall: "viewRatings", actionLabel: "View More Ratings"
+                        , progressiveRender: "@{#dp.ratings[NYTIMES] != #dp.ratings[AMAZON]}"}
+                    ]
+            }
+        ]
+    },
+    averageReview: { _parent: "Uif-InputField", propertyName: "averageReview", label: "Average Review",
+        "control":
+        {_parent: "Uif-HorizontalRadioControl",
+        "options":
+            [
+                {_parent: "Uif-KeyLabelPair", key: "1", value: "[color=yellow]1 Star[/color]"},
+                {_parent: "Uif-KeyLabelPair", key: "2", value: "[color=green]2 Star[/color]"},
+                {_parent: "Uif-KeyLabelPair", key: "3", value: "[color=blue]3 Star[/color]"},
+                {_parent: "Uif-KeyLabelPair", key: "4", value: "[color=orange]4 Star[/color]"},
+                {_parent: "Uif-KeyLabelPair", key: "5", value: "[color=red]5 Star[/color]"}
+            ]
+        },
+        "propertyReplacers":
+           [
+                {_parent: "Uif-ConditionalBeanPropertyReplacer", propertyName: "control"
+                , condition: "@{expertEntry}",
+                "replacement": {_parent: "Uif-TextControl", size: "3"}
+                }
+            ]
+    },
+
+    formats: { _parent: "Uif-HorizontalBoxSection", headerText: "Formats", "layoutManager.itemStyleClasses": "border-group",
+        items:
+        [
+            {_parent: "Uif-InputField", propertyName: "fiction", label: "Fiction?",
+            "control": {_parent: "Uif-CheckboxControl"} },
+
+            {_parent: "Uif-InputField", propertyName: "availableFormats", label: "Available Formats" , required: "@{#dp.fiction or (#dp.edition } 1)}",
+                control:
+                    {_parent: "Uif-VerticalCheckboxesControl",
+                        "options":
+                        [
+
+                            {_parent: "Uif-KeyLabelPair", key: "P", value: "Printed"},
+                            {_parent: "Uif-KeyLabelPair", key: "K", value: "Kindle"},
+                            {_parent: "Uif-KeyLabelPair", key: "A", value: "AudioBook"}
+                        ]
+                    }
+            },
+
+            { _parent: "Uif-InputField", propertyName: "languages", label: "Languages"
+            , refreshWhenChangedPropertyNames: "#dp.availableFormats",
+                "control":
+                {_parent: "Uif-MultiSelectControl"},
+                "optionsFinderClass": "org.kuali.rice.krtrain.finders.BookLanguageOptions"
+            }
+        ],
+        "help":
+        {_parent: "Uif-Help",
+            "helpDefinition":
+            {_parent: "HelpDefinition", parameterNamespace: "KR-SAP"
+            , parameterDetailType: "BookEntry", parameterName: "FormatsHelpUrl"
+            }
+        }
+    },
+
+    publisherGroup: {
+        _parent: "Uif-VerticalBoxSection", headerText: "Publisher Information",
+        instructionalText: "If no publisher information is available this section may be left blank.",
+        conditionalRefresh: "@{#dp.publisherCode eq 'NON'}",
+        "header.rightGroup": {
+            _parent: "Uif-HeaderRightGroup",
+            items:
+            [
+            {_parent: "Uif-Link", linkText: "List of Publishers", target: "_blank"
+            , href: "http://en.wikipedia.org/wiki/List_of_English-language_book_publishing_companies"
+            , openInLightbox: "true"}
+            ]
+        },
+        items:
+            [
+                { _id: "publisher", _parent: "Uif-InputField-LabelTop", propertyName: "publisher", label: "Publisher"},
+
+                {_parent: "Uif-InputField-LabelTop", propertyName: "publisherCode", minLength: "1", constraintText: "#xxx format"
+                , dictionaryObjectEntry: "org.kuali.rice.krtrain.book.PublisherCode", dictionaryAttributeName: "code", propertyNamesForAdditionalDisplay: "pubCode.name",
+                "attributeQuery":
+                    {_parent: "Uif-AttributeQueryConfig"
+                    , queryMethodArgumentFieldList: "publisherCode", returnFieldMapping: "name:pubCode.name"
+                    , "queryMethodInvokerConfig.staticMethod": "org.kuali.rice.krtrain.util.QueryUtils.retrievePublisherCode"},
+
+                "suggest":
+                    {_parent: "Uif-Suggest", sourcePropertyName: "code"
+                    , "suggestQuery.dataObjectClassName": "org.kuali.rice.krtrain.book.PublisherCode"}
+                },
+
+                { _ref: "publisherDetails"}
+            ],
+    "footer": {_parent: "Uif-FooterBase",
+        items:
+            [
+                {_parent: "Uif-PrimaryActionButton-Small", methodToCall: "viewPublisher"
+                , actionLabel: "publisher summary", actionParameters: "format:summary"
+                , refreshId: "publisherGroup"
+                , successCallback: "alert('publisher information retrieved');",
+                    "toolTip":
+                        {_parent: "Uif-Tooltip", tooltipContent: "See a summary of this publisher"}
+                },
+
+                {_parent: "Uif-PrimaryActionButton-Small", methodToCall: "viewPublisher"
+                , actionLabel: "publisher details", actionParameters: "format:detail"
+                , refreshId: "publisherGroup",
+                    "toolTip":
+                    {_parent: "Uif-Tooltip", tooltipContent: "See all details for this publisher"}
+                }
+            ]
+    },
+    "propertyReplacers":
+        [
+            {_parent: "Uif-ConditionalBeanPropertyReplacer", propertyName: "instructionalText"
+            , condition: "@{expertEntry}", replacement: "Entry the usual publisher"}
+        ]
+    },
+
+    publisherDetails: {
+        _parent: "Uif-Disclosure-VerticalBoxSubSection", headerText: "Publisher Details"
+        , "disclosure.defaultOpen": "false",
+        items:
+            [
+                {_parent: "Uif-HorizontalBoxGroup",
+                    items:
+                    [
+                        {_parent: "Uif-VerticalBoxGroup", style: "margin-right: 50px;",
+                            items:
+                                [
+                                    {_parent: "Uif-InputField-LabelTop", propertyName: "publisherAddress"
+                                    , label: "Publisher Address",
+                                        "control":
+                                        {_parent: "Uif-MediumTextControl", watermarkText: "street # name"}
+
+                                    },
+
+                                    {_parent: "Uif-InputField-LabelTop", propertyName: "publisherState"
+                                    , label: "Publisher State", readOnly: "@{#empty(#dp.publisherAddress)}"
+                                    , refreshWhenChangedPropertyNames: "#dp.publisherAddress",
+                                    "control":
+                                    {_parent: "Uif-TextControl", size: "2"}
+                                    },
+
+                                    {_parent: "Uif-InputField-LabelTop", propertyName: "publicationDate",
+                                        label: "Publisher Date",
+                                        "control":
+                                            {_parent: "Uif-DateControl"},
+                                        "datePicker":
+                                            {_parent: "Uif-DatePicker"},
+                                        "templateOptions": {
+                                            map: {
+                                               merge: "true",
+                                               values: {
+                                                 "changeYear": "false",
+                                                 "maxDate": "+3m"
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                        },
+
+                        {_parent: "Uif-ImageField",
+                            source: "@{#ConfigProperties['application.url']}/images/publisher.png",
+                            altText: "publisher logo", captionHeaderText: "Publisher Logo",
+                            cutlineText: "logo created by [i]entangled publishing[/i], [id=copyrightImage]2013",
+                            render: "@{#getParmInd('KR-SAP','BookEntry','RenderPublisherLogo')}",
+                            "cssClasses": {
+                                list: {
+                                    merge: "true",
+                                    values: [ "border-photo" ]
+                                 }
+                            }
+                        }
+
+                    ]
+                },
+
+                {_parent: "Uif-Message", messageText: "There are @{book.numberPublisherBooks} books from this publisher.",
+                    "cssClasses": {
+                        list: {
+                            merge: "true",
+                            values: [ "message-highlight"   ]
+                        }
+                    }
+                }
+            ]
     }
 }
+
