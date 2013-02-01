@@ -1,0 +1,152 @@
+{
+    "Krtrain-BookEntryViewMenu": {
+        _parent: "Uif-FormView",
+        headerText: "Book Entry Menu",
+        readOnly: "@{format.readOnlyView}",
+        dialogs: [
+            { _ref: "addAwardDialog" },
+            { _ref: "saveOverrideDialog" }
+        ],
+        items: [
+            { _ref: "Krtrain-BookEntryPage1" },
+            { _ref: "Krtrain-BookEntryPage2" },
+            { _ref: "Krtrain-BookPreview" }
+        ],
+        navigation: { _ref: "Krtrain-BookEntryMenuNavigation" },
+        formClass: "org.kuali.rice.krtrain.book.BookEntryForm",
+        additionalCssFiles: [
+            "@{#ConfigProperties['application.url']}/css/krad-training.css",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/jquery.booklet.1.1.0.css",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/moleskine.css"
+        ],
+        additionalScriptFiles: [
+            "@{#ConfigProperties['application.url']}/js/krad-training.js",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/jquery.booklet.1.1.0.js"
+        ],
+        applicationHeader: {
+            _parent: "Uif-HeaderBase",
+            template: "/WEB-INF/templates/ftl/applicationHeader.ftl",
+            templateName: "appheader"
+        },
+        applicationFooter: {
+            _parent: "Uif-FooterBase",
+            template: "/WEB-INF/templates/ftl/applicationFooter.ftl",
+            templateName: "appfooter"
+        },
+        defaultBindingObjectPath: "book",
+        footer: {
+            _parent: "Uif-FooterBase",
+            items: [
+                {
+                    _parent: "Uif-PrimaryActionButton",
+                    methodToCall: "saveBook",
+                    actionLabel: "save book",
+                    preSubmitCall: "return promptBeforeSave();",
+                    loadingMessageText: "Saving Book...",
+                    focusOnIdAfterSubmit: "FIRST",
+                    jumpToIdAfterSubmit: "TOP",
+                    render: "@{!view.readOnly}",
+                    disabled: "@{#empty(#dp.title)}"
+                },
+                {
+                    _parent: "Uif-PrimaryActionButton",
+                    actionScript: "clearForm();",
+                    actionLabel: "clear form"
+                },
+                {
+                    _parent: "Uif-PrimaryActionButton",
+                    methodToCall: "cancel",
+                    actionLabel: "cancel",
+                    performDirtyValidation: "true"
+                }
+            ]
+        },
+        help: {
+            _parent: "Uif-Help",
+            externalHelpUrl: "https://wiki.kuali.org",
+            tooltipHelpContent: "Help for Book Entry"
+        },
+        viewHelperServiceClass: "org.kuali.rice.krtrain.book.BookEntryViewHelper"
+    },
+    "Krtrain-BookEntryPage1": {
+        _parent: "Uif-Page",
+        onDocumentReadyScript: "setupReviewCheck();",
+        items: [
+            {
+                _parent: "Uif-Message",
+                messageText: "[b]Copyright Information[/b] &lt;br&gt; United States of America: US copyright law can be found in various pieces of legislation dealing &lt;br&gt; with copyright and responsibility for the administrative aspects of copyright law rests with &lt;br&gt; the United States Copyright Office, whose website can be found at: [link=http://www.copyright.gov/]http://www.copyright.gov/[/link].",
+                cssClasses: [ "message-copyright" ]
+            },
+
+            {
+                _parent: "Uif-Message",
+                messageText: "[css=message-caps]This entry[/css] is made by [0] to be valid for [1] days.",
+                inlineComponents: [
+                    {_parent: "Uif-InputField", propertyName: "preparerSignature", "fieldLabel.render": "false",
+                    "control":
+                        {_parent: "Uif-TextControl",
+                        onBlurScript: "alert('By entering your name you are providing an electronic signature.');"
+                        }
+                    },
+                    {_parent: "Uif-InputField", propertyName: "numberValidDays", "fieldLabel.render": "false",
+                    "control":
+                    {_parent: "Uif-SpinnerControl", size: "2" }
+                    }
+                ]
+            },
+
+            { _ref: "generalInformation" },
+
+            { _ref: "bookCondition" },
+
+            { _ref: "ratings" },
+
+            { _ref: "formats" },
+
+            { _ref: "publisherGroup" },
+
+            { _ref: "authorGroup" }
+        ]
+    },
+
+    copyrightImage: {
+        _parent: "Uif-Image",
+        source: "@{#ConfigProperties['application.url']}/images/copyright.png"
+    },
+
+    "Krtrain-BookEntryPage2": {
+        _parent: "Uif-Page",
+        items: [
+            { _ref: "chapters" },
+            { _ref: "relatedBooks" },
+            { _ref: "index" }
+        ]
+    },
+
+    "Krtrain-BookEntryMenuNavigation": {
+        _parent: "Uif-MenuNavigationGroup",
+        items: [
+            {_parent: "Uif-HeaderTwo", headerText: "Navigation" },
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage1", actionLabel: "Book Indexing" },
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage2", actionLabel: "Book Content" },
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookPreview", actionLabel: "Book Preview" }
+        ]
+    },
+    "Krtrain-BookEntryViewTabs": {
+        _parent: "Krtrain-BookEntryViewMenu",
+        headerText: "Book Entry Tabs",
+        "navigation": { _ref: "Krtrain-BookEntryTabNavigation" }
+    },
+    "Krtrain-BookEntryTabNavigation": {
+        _parent: "Uif-TabNavigationGroup",
+        items: [
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage1", actionLabel: "Book Indexing" },
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage2", actionLabel: "Book Content" }
+        ]
+    },
+    generalInformation: {
+        _parent: "Uif-GridSection",
+        headerText: "General Information - @{#dp.isbn}",
+        "layoutManager.numberOfColumns": "4"
+    }
+}

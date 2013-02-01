@@ -1,0 +1,797 @@
+{
+    "Krtrain-BookEntryViewMenu": {
+        _parent: "Uif-FormView",
+        headerText: "Book Entry Menu",
+        readOnly: "@{format.readOnlyView}",
+        dialogs: [
+            { _ref: "addAwardDialog" },
+            { _ref: "saveOverrideDialog" },
+        ],
+        items: [
+            { _ref: "Krtrain-BookEntryPage1" },
+            { _ref: "Krtrain-BookEntryPage2" },
+            { _ref: "Krtrain-BookPreview" }
+        ],
+        navigation: { _ref: "Krtrain-BookEntryMenuNavigation" },
+        formClass: "org.kuali.rice.krtrain.book.BookEntryForm",
+        additionalCssFiles: [
+            "@{#ConfigProperties['application.url']}/css/krad-training.css",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/jquery.booklet.1.1.0.css",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/moleskine.css"
+        ],
+        additionalScriptFiles: [
+            "@{#ConfigProperties['application.url']}/js/krad-training.js",
+            "@{#ConfigProperties['application.url']}/plugins/booklet/jquery.booklet.1.1.0.js"
+        ],
+        applicationHeader: {
+            _parent: "Uif-HeaderBase",
+            template: "/WEB-INF/templates/ftl/applicationHeader.ftl",
+            templateName: "appheader"
+        },
+        applicationFooter: {
+            _parent: "Uif-FooterBase",
+            template: "/WEB-INF/templates/ftl/applicationFooter.ftl",
+            templateName: "appfooter"
+        }
+        defaultBindingObjectPath: "book",
+        footer: {
+            _parent: "Uif-FooterBase",
+            items: [
+                {
+                    _parent: "Uif-PrimaryActionButton",
+                    methodToCall: "saveBook",
+                    actionLabel: "save book",
+                    preSubmitCall: "return promptBeforeSave();",
+                    loadingMessageText: "Saving Book...",
+                    focusOnIdAfterSubmit: "FIRST",
+                    jumpToIdAfterSubmit: "TOP",
+                    render: "@{!view.readOnly}",
+                    disabled: "@{#empty(#dp.title)}"
+                },
+                { _parent: "Uif-PrimaryActionButton",
+                  actionScript: "clearForm();",
+                  actionLabel: "clear form" },
+                { _parent: "Uif-PrimaryActionButton", methodToCall: "cancel" actionLabel: "cancel", performDirtyValidation: "true" }
+            ]
+        },
+        help: {_parent: "Uif-Help",
+                externalHelpUrl: "https://wiki.kuali.org",
+                tooltipHelpContent: "Help for Book Entry" },
+        viewHelperServiceClass: "org.kuali.rice.krtrain.book.BookEntryViewHelper"
+    },
+    "Krtrain-BookEntryPage1": {
+        _parent: "Uif-Page",
+        onDocumentReadyScript: "setupReviewCheck();",
+        items: [
+            {
+                _parent: "Uif-Message",
+                messageText: "[b]Copyright Information[/b] &lt;br&gt; United States of America: US copyright law can be found in various pieces of legislation dealing &lt;br&gt; with copyright and responsibility for the administrative aspects of copyright law rests with &lt;br&gt; the United States Copyright Office, whose website can be found at: [link=http://www.copyright.gov/]http://www.copyright.gov/[/link]."
+                cssClasses: [ "message-copyright" ]
+            },
+
+            {
+                _parent: "Uif-Message",
+                messageText: "[css=message-caps]This entry[/css] is made by [0] to be valid for [1] days.",
+                inlineComponents: [
+                    {_parent: "Uif-InputField", propertyName: "preparerSignature", "fieldLabel.render": "false",
+                    "control":
+                        {_parent: "Uif-TextControl",
+                        onBlurScript: "alert('By entering your name you are providing an electronic signature.');"
+                        }
+                    },
+                    {_parent: "Uif-InputField", propertyName: "numberValidDays", "fieldLabel.render": "false",
+                    "control":
+                    {_parent: "Uif-SpinnerControl", size: "2" }
+                    }
+                ]
+            },
+
+            { _ref: "generalInformation" },
+
+            { _ref: "bookCondition" },
+
+            { _ref: "ratings" },
+
+            { _ref: "formats" },
+
+            { _ref: "publisherGroup" },
+
+            { _ref: "authorGroup" }
+        ]
+    },
+
+    copyrightImage: { _parent: "Uif-Image", source: "@{#ConfigProperties['application.url']}/images/copyright.png" },
+
+    "Krtrain-BookEntryPage2": { _parent: "Uif-Page", "items": [
+        { _ref: "chapters" },
+
+        { _ref: "relatedBooks" },
+
+        { _ref: "index" }
+    ] },
+
+    "Krtrain-BookEntryMenuNavigation": { _parent: "Uif-MenuNavigationGroup", items: [
+
+        {_parent: "Uif-HeaderTwo", headerText: "Navigation" },
+        {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage1",
+          actionLabel: "Book Indexing" },
+        {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage2",
+          actionLabel: "Book Content" }
+        {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookPreview",
+          actionLabel: "Book Preview" }
+        ]
+    },
+    "Krtrain-BookEntryViewTabs": { _parent: "Krtrain-BookEntryViewMenu", headerText: "Book Entry Tabs"
+        "navigation":
+        { _ref: "Krtrain-BookEntryTabNavigation" }
+        },
+    "Krtrain-BookEntryTabNavigation": { _parent: "Uif-TabNavigationGroup"
+        "items":
+        [
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage1",
+            actionLabel: "Book Indexing" }
+            {_parent: "Uif-NavigationActionLink", navigateToPageId: "Krtrain-BookEntryPage2",
+            actionLabel: "Book Content" }
+        ]
+    },
+    "generalInformation": { _parent: "Uif-GridSection", headerText: "General Information - @{#dp.isbn}",
+"layoutManager.numberOfColumns": "4",
+"items":
+[
+{id: "title" _parent: "Uif-InputField", propertyName: "title", label: "Book Title"}
+
+{id: "typeCode" _parent: "Uif-InputField", propertyName: "typeCode"
+p:dictionaryObjectEntry: "org.kuali.rice.krtrain.book.BookType"
+p:propertyNamesForAdditionalDisplay: "bookType.description"}
+"quickfinder"}
+{_parent: "Uif-QuickFinder", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
+p:fieldConversions: "typeCode:typeCode"}
+}
+
+"inquiry"}
+{_parent: "Uif-Inquiry", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
+p:inquiryParameters: "typeCode:typeCode", enableDirectInquiry: "true"}
+}
+
+"attributeQuery"}
+{_parent: "Uif-AttributeQueryConfig"
+p:dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
+p:queryFieldMapping: "typeCode:typeCode"
+p:returnFieldMapping: "description:bookType.description"}
+}
+}
+
+{id: "isbn" _parent: "Uif-InputField-LabelRight", propertyName: "isbn"
+p:label: "ISBN", instructionalText: "Please enter the [b]newest ISBN[/b] number available"}
+"help"}
+{_parent: "Uif-Help"}
+"tooltipHelpContent"
+value: "Search &lt;a href=http://www.google.com&gt;google.com&lt;/a&gt; for ISBN codes"}
+}
+}
+}
+
+{_parent: "Uif-DataField", propertyName: "entryDate", bindingInfo.bindToForm: "true"
+p:label: "Entry Date", defaultValue: "01/03/2013"}
+
+{_parent: "Uif-InputField", propertyName: "edition", label: "Edition"
+p:propertyEditorClass: "org.kuali.rice.krtrain.editors.EditionPropertyEditor"
+p:onMouseOverScript: "jQuery(this).stop().css({'color':'#FFF2A8','fontSize':'15px'});"
+p:onMouseOutScript: "jQuery(this).stop().css({'color':'black','fontSize':'11px'});"
+p:readOnly: "true"}
+
+{_parent: "Uif-InputField", propertyName: "shortSummary", label: "Short Summary"}
+"control"}
+{_parent: "Uif-SmallTextAreaControl"}
+"toolTip"}
+{_parent: "Uif-Tooltip", onFocus: "true", onMouseHover: "false"
+p:tooltipContent: "Please use the long summary field for a longer description"}
+}
+}
+}
+}
+
+{_parent: "Uif-InputField", propertyName: "longSummary", label: "Long Summary"
+p:colSpan: "3"}
+"control"}
+{_parent: "Uif-TextAreaControl", rows: "@{format.summaryRows}", cols: "80", textExpand: "true"}
+}
+}
+]
+}
+"componentModifiers":
+list: {
+  merge: "true",
+  values: [
+{class: "org.kuali.rice.krtrain.component.AuditFieldModifier",
+p:runPhase: "FINALIZE", runCondition: "@{auditMode}"}
+]
+}
+}
+
+{id: "bookCondition" _parent: "Uif-GridSection", headerText: "Book Condition"
+p:layoutManager.numberOfColumns: "4", progressiveRender: "@{!#empty(#dp.title)}"
+p:progressiveRenderViaAJAX: "true"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "bindingType", label: "Binding Type"
+p:defaultValueFinderClass: "org.kuali.rice.krtrain.finders.DefaultBindingTypeValueFinder"}
+"control"}
+{_parent: "Uif-MediumTextControl", disabled: "@{#dp.fiction}"}
+}
+}
+
+{_parent: "Uif-InputField", propertyName: "wearAndTear", label: "Wear and Tear", readOnly: "true"
+p:readOnlyListDisplayType: "OL", fieldLabel.rowSpan: "2", rowSpan: "2"}
+
+{_parent: "Uif-VerticalFieldGroup", label: "Cover"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "coverArt", readOnly: "true"
+p:readOnlyDisplaySuffixPropertyName: "coverArtist"}
+
+{_parent: "Uif-InputField", propertyName: "coverImage"}
+"control"}
+{_parent: "Uif-FileControl"}
+}
+}
+]
+}
+}
+]
+}
+}
+
+{id: "ratings" _parent: "Uif-GridSection", headerText: "Ratings", render: "@{!format.hideRatings}"}
+"items"}
+[
+{_parent: "Uif-GridFieldGroup", label: "Ratings"
+p:group.layoutManager.numberOfColumns: "1"}
+"items"}
+[
+{_parent: "Uif-InputField", bindingInfo.bindByNamePrefix: "ratings"
+p:bindingInfo.bindToMap: "true", propertyName: "NYTIMES"
+p:label: "[link=http://www.nytimes.com]New York Times[/link] Rating"}
+
+{_parent: "Uif-InputField", bindingInfo.bindByNamePrefix: "ratings"
+p:bindingInfo.bindToMap: "true", propertyName: "AMAZON"
+p:label: "[link=http://amazon.com]Amazon[/link] Rating"}
+
+{_parent: "Uif-ActionLink", methodToCall: "viewRatings", actionLabel: "View More Ratings"
+p:progressiveRender: "@{#dp.ratings[NYTIMES] != #dp.ratings[AMAZON]}"}
+]
+}
+}
+
+{id: "averageReview" _parent: "Uif-InputField", propertyName: "averageReview", label: "Average Review"}
+"control"}
+{_parent: "Uif-HorizontalRadioControl"}
+"options"}
+[
+{_parent: "Uif-KeyLabelPair", key: "1", value: "[color=yellow]1 Star[/color]"}
+{_parent: "Uif-KeyLabelPair", key: "2", value: "[color=green]2 Star[/color]"}
+{_parent: "Uif-KeyLabelPair", key: "3", value: "[color=blue]3 Star[/color]"}
+{_parent: "Uif-KeyLabelPair", key: "4", value: "[color=orange]4 Star[/color]"}
+{_parent: "Uif-KeyLabelPair", key: "5", value: "[color=red]5 Star[/color]"}
+]
+}
+}
+}
+"propertyReplacers"}
+[
+{_parent: "Uif-ConditionalBeanPropertyReplacer", propertyName: "control"
+p:condition: "@{expertEntry}"}
+"replacement"}
+{_parent: "Uif-TextControl", size: "3"}
+}
+}
+]
+}
+}
+]
+}
+}
+
+{id: "formats" _parent: "Uif-HorizontalBoxSection", headerText: "Formats"
+p:layoutManager.itemStyleClasses: "border-group"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "fiction", label: "Fiction?"}
+"control"}
+{_parent: "Uif-CheckboxControl"}
+}
+}
+
+{_parent: "Uif-InputField", propertyName: "availableFormats", label: "Available Formats"
+p:required: "@{#dp.fiction or (#dp.edition } 1)}"}
+"control"}
+{_parent: "Uif-VerticalCheckboxesControl"}
+"options"}
+[
+{_parent: "Uif-KeyLabelPair", key: "P", value: "Printed"}
+{_parent: "Uif-KeyLabelPair", key: "K", value: "Kindle"}
+{_parent: "Uif-KeyLabelPair", key: "A", value: "AudioBook"}
+]
+}
+}
+}
+}
+
+{_parent: "Uif-InputField", propertyName: "languages", label: "Languages"
+p:refreshWhenChangedPropertyNames: "#dp.availableFormats"}
+"control"}
+{_parent: "Uif-MultiSelectControl"}
+}
+"optionsFinderClass" value: "org.kuali.rice.krtrain.finders.BookLanguageOptions"}
+}
+]
+}
+"help"}
+{_parent: "Uif-Help"}
+"helpDefinition"}
+{_parent: "HelpDefinition", parameterNamespace: "KR-SAP"
+p:parameterDetailType: "BookEntry", parameterName: "FormatsHelpUrl"}
+}
+}
+}
+}
+
+{id: "publisherGroup" _parent: "Uif-VerticalBoxSection", headerText: "Publisher Information"
+p:instructionalText: "If no publisher information is available this section may be left blank."
+p:conditionalRefresh: "@{#dp.publisherCode eq 'NON'}"}
+"header.rightGroup"}
+{_parent: "Uif-HeaderRightGroup"}
+"items"}
+[
+{_parent: "Uif-Link", linkText: "List of Publishers", target: "_blank"
+p:href: "http://en.wikipedia.org/wiki/List_of_English-language_book_publishing_companies"
+p:openInLightbox: "true"}
+]
+}
+}
+}
+"items"}
+[
+{id: "publisher" _parent: "Uif-InputField-LabelTop", propertyName: "publisher"
+p:label: "Publisher"}
+
+{_parent: "Uif-InputField-LabelTop", propertyName: "publisherCode"
+p:minLength: "1", constraintText: "#xxx format"
+p:dictionaryObjectEntry: "org.kuali.rice.krtrain.book.PublisherCode"
+p:dictionaryAttributeName: "code", propertyNamesForAdditionalDisplay: "pubCode.name"}
+"attributeQuery"}
+{_parent: "Uif-AttributeQueryConfig"
+p:queryMethodArgumentFieldList: "publisherCode", returnFieldMapping: "name:pubCode.name"
+p:queryMethodInvokerConfig.staticMethod: "org.kuali.rice.krtrain.util.QueryUtils.retrievePublisherCode"}
+}
+
+"suggest"}
+{_parent: "Uif-Suggest", sourcePropertyName: "code"
+p:suggestQuery.dataObjectClassName: "org.kuali.rice.krtrain.book.PublisherCode"}
+}
+}
+
+{ _ref: "publisherDetails"}
+]
+}
+"footer"}
+{_parent: "Uif-FooterBase"}
+"items"}
+[
+{_parent: "Uif-PrimaryActionButton-Small", methodToCall: "viewPublisher"
+p:actionLabel: "publisher summary", actionParameters: "format:summary"
+p:refreshId: "publisherGroup"
+p:successCallback: "alert('publisher information retrieved');"}
+"toolTip"}
+{_parent: "Uif-Tooltip", tooltipContent: "See a summary of this publisher"}
+}
+}
+
+{_parent: "Uif-PrimaryActionButton-Small", methodToCall: "viewPublisher"
+p:actionLabel: "publisher details", actionParameters: "format:detail"
+p:refreshId: "publisherGroup"}
+"toolTip"}
+{_parent: "Uif-Tooltip", tooltipContent: "See all details for this publisher"}
+}
+}
+]
+}
+}
+}
+"propertyReplacers"}
+[
+{_parent: "Uif-ConditionalBeanPropertyReplacer", propertyName: "instructionalText"
+p:condition: "@{expertEntry}", replacement: "Entry the usual publisher"}
+]
+}
+}
+
+{id: "publisherDetails" _parent: "Uif-Disclosure-VerticalBoxSubSection", headerText: "Publisher Details"
+p:disclosure.defaultOpen: "false"}
+"items"}
+[
+{_parent: "Uif-HorizontalBoxGroup"}
+"items"}
+[
+{_parent: "Uif-VerticalBoxGroup", style: "margin-right: 50px;"}
+"items"}
+[
+{_parent: "Uif-InputField-LabelTop", propertyName: "publisherAddress"
+p:label: "Publisher Address"}
+"control"}
+{_parent: "Uif-MediumTextControl", watermarkText: "street # name"}
+}
+}
+
+{_parent: "Uif-InputField-LabelTop", propertyName: "publisherState"
+p:label: "Publisher State", readOnly: "@{#empty(#dp.publisherAddress)}"
+p:refreshWhenChangedPropertyNames: "#dp.publisherAddress"}
+"control"}
+{_parent: "Uif-TextControl", size: "2"}
+}
+}
+
+{_parent: "Uif-InputField-LabelTop", propertyName: "publicationDate"
+p:label: "Publisher Date"}
+"control"}
+{_parent: "Uif-DateControl"}
+"datePicker"}
+{_parent: "Uif-DatePicker"}
+"templateOptions"}
+<map merge: "true"}
+<entry key: "changeYear" value: "false"}
+<entry key: "maxDate" value: "+3m"}
+</map}
+}
+}
+}
+}
+}
+}
+]
+}
+}
+
+{_parent: "Uif-ImageField"
+p:source: "@{#ConfigProperties['application.url']}/images/publisher.png"
+p:altText: "publisher logo", captionHeaderText: "Publisher Logo"
+p:cutlineText: "logo created by [i]entangled publishing[/i], [id=copyrightImage]2013"
+p:render: "@{#getParmInd('KR-SAP','BookEntry','RenderPublisherLogo')}"}
+"cssClasses"}
+<list merge: "true"}
+"border-photo"
+]
+}
+}
+]
+}
+}
+
+{_parent: "Uif-Message"
+p:messageText: "There are @{book.numberPublisherBooks} books from this publisher."}
+"cssClasses"}
+<list merge: "true"}
+"message-highlight"
+]
+}
+}
+]
+}
+}
+
+{id: "authorGroup" _parent: "Uif-HorizontalBoxSection", headerText: "Author Information"}
+"header.lowerGroup"}
+{_parent: "Uif-HeaderLowerGroup"}
+"items"}
+[
+{_parent: "Uif-HorizontalFieldGroup", label: "Written Books"
+p:refreshTimer: "30"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "author.numberWrittenBooks"
+p:readOnly: "true"
+p:readOnlyDisplayReplacement: "@{book.author.numberWrittenBooks} (@{book.author.numberPublishedBooks} published)"}
+
+{_parent: "Uif-ActionImage", methodToCall: "viewAuthorBooks"}
+"actionImage"}
+{_parent: "Uif-Image"
+p:source: "@{#ConfigProperties['application.url']}/images/book.png"}
+}
+}
+]
+}
+}
+]
+}
+}
+}
+"items"}
+[
+{_parent: "Uif-InputField", bindingInfo.bindByNamePrefix: "author"
+p:propertyName: "authorName", label: "Author Name", additionalHiddenPropertyNames: "authorId"}
+"quickfinder"}
+{_parent: "Uif-QuickFinder", dataObjectClassName: "org.kuali.rice.krtrain.book.Author"
+p:fieldConversions: "authorId:authorId,authorName:authorName,email:email"
+p:lookupParameters: "email:email", readOnlySearchFields: "email"}
+}
+}
+
+{_parent: "Uif-VerticalBoxGroup"}
+"items"}
+[
+{_parent: "Uif-InputField", bindingInfo.bindByNamePrefix: "author"
+p:propertyName: "email", label: "Author Email"
+p:instructionalText: "Enter email for the author @{#fp.authorName}"}
+
+{_parent: "Uif-LinkGroup", linkSeparator: "|"}
+"items"}
+[
+{_parent: "Uif-Link", linkText: "Facebook", target: "_blank"
+p:href: "http://www.facebook.com"}
+{_parent: "Uif-Link", linkText: "Twitter", target: "_blank"
+p:href: "http://www.twitter.com"}
+{_parent: "Uif-Link", linkText: "Linkedin", target: "_blank"
+p:href: "http://www.linkedin.com"}
+]
+}
+}
+
+{_parent: "Uif-Link", linkText: "Link Not Set"
+p:finalizeMethodToCall: "setupAuthorBlogLink"}
+]
+}
+}
+]
+}
+"footer"}
+{_parent: "Uif-FooterBase"}
+"items"}
+[
+{_parent: "Uif-SecondaryActionButton", methodToCall: "viewAuthorBooks"
+p:actionLabel: "view author books", actionImagePlacement: "RIGHT"}
+"actionImage"}
+{_parent: "Uif-Image"
+p:source: "@{#ConfigProperties['application.url']}/images/book.png"}
+}
+}
+]
+}
+}
+}
+}
+
+{id: "chapters" _parent: "Uif-Disclosure-TableCollectionSection", headerText: "Chapters", propertyName: "chapters"
+p:collectionObjectClass: "org.kuali.rice.krtrain.book.Chapter", renderSaveLineActions: "true"
+p:layoutManager.renderSequenceField: "false", layoutManager.groupingPropertyNames: "part"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "number"}
+{_parent: "Uif-InputField", propertyName: "title"}
+{_parent: "Uif-InputField", propertyName: "part"}
+{_parent: "Uif-InputField", propertyName: "numberPages"}
+{_parent: "Uif-VerticalFieldGroup", label: "Recap"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "recap"}
+{_parent: "Uif-InputField", propertyName: "recapPageNumber"
+p:progressiveRender: "@{#lp.recap}"}
+]
+}
+}
+]
+}
+"layoutManager.columnCalculations"}
+[
+{_parent: "Uif-ColumnCalculationInfo-Sum", showGroupTotal: "true", propertyName: "numberPages"}
+]
+}
+"layoutManager.actionFieldPrototype.group.layoutManager"}
+{_parent: "Uif-VerticalBoxLayout"}
+}
+}
+
+{id: "relatedBooks" _parent: "Uif-Disclosure-TableCollectionSection", headerText: "Related Books"
+p:propertyName: "relatedBooks", collectionObjectClass: "org.kuali.rice.krtrain.book.Book"
+p:displayCollectionSize: "3", addLineLabel.labelText: "Add Related Book"
+p:layoutManager.generateAutoSequence: "true", layoutManager.actionColumnPlacement: "LEFT"
+p:layoutManager.separateAddLine: "true", layoutManager.showToggleAllDetails: "true"
+p:layoutManager.expandDetailsActionPrototype.actionLabel: "Chapters"}
+"addLineItems"}
+[
+{_parent: "Uif-InputField", propertyName: "id"}
+"control"}
+{_parent: "Uif-TextControl", size: "3"}
+}
+}
+]
+}
+"items"}
+[
+{_parent: "Uif-DataField", propertyName: "id"}
+{_parent: "Uif-DataField", propertyName: "title"}
+{_parent: "Uif-DataField", propertyName: "typeCode"
+p:dictionaryObjectEntry: "org.kuali.rice.krtrain.book.BookType"}
+{_parent: "Uif-DataField", propertyName: "isbn"}
+{_parent: "Uif-DataField", propertyName: "publisher"}
+{_parent: "Uif-DataField", propertyName: "publicationDate"}
+{_parent: "Uif-DataField", propertyName: "price"}
+]
+}
+"lineActions"}
+<list merge: "true"}
+{_parent: "Uif-SecondaryActionButton-Small", methodToCall: "viewBookEntry"
+p:actionLabel: "view book entry", actionParameters: "id:@{#line.id}"}
+]
+}
+"layoutManager.rowDetailsGroup"}
+{_parent: "relatedBookChapters", disclosure.render: "false"}
+}
+"layoutManager.richTable"}
+{_parent: "Uif-RichTable"}
+"templateOptions"}
+<map merge: "true"}
+<entry key: "sDom" value: "fTrt"}
+</map}
+}
+}
+}
+}
+
+{id: "relatedBookChapters" _parent: "Uif-Disclosure-StackedSubCollection-WithinSection", headerText: "Chapters"
+p:propertyName: "chapters", collectionObjectClass: "org.kuali.rice.krtrain.book.Chapter"
+p:disclosure.defaultOpen: "false", readOnly: "true"
+p:layoutManager.summaryTitle: "@{#line.number} - @{#line.title}"}
+"items"}
+[
+{_parent: "Uif-DataField", propertyName: "number"}
+{_parent: "Uif-DataField", propertyName: "title"}
+{_parent: "Uif-DataField", propertyName: "part"}
+{_parent: "Uif-DataField", propertyName: "numberPages"}
+{_parent: "Uif-DataField", propertyName: "recap"}
+]
+}
+"layoutManager.wrapperGroup"}
+{_parent: "Uif-GridGroup", layoutManager.numberOfColumns: "3"
+p:layoutManager.renderAlternatingHeaderColumns: "false"}
+}
+}
+
+{id: "index" _parent: "Uif-Disclosure-StackedCollectionSection", headerText: "Index", propertyName: "index"
+p:collectionObjectClass: "org.kuali.rice.krtrain.book.IndexEntry"
+p:renderAddBlankLineButton: "true", addLinePlacement: "BOTTOM"
+p:layoutManager.summaryTitle: "Term", layoutManager.summaryFields: "term"}
+"items"}
+[
+{_parent: "Uif-InputField", propertyName: "term"}
+{_parent: "Uif-InputField", propertyName: "pageNumbers"}
+]
+}
+"layoutManager"}
+{_parent: "Uif-StackedCollectionLayout-WithBoxItems"}
+}
+"lineActions"}
+[
+{_parent: "Uif-DeleteLineAction", disabledWhenChangedPropertyNames: "#lp.term,#lp.pageNumbers"
+p:evaluateDisabledOnKeyUp: "true"}
+]
+}
+}
+
+{id: "Booklet" class: "org.kuali.rice.krtrain.component.Booklet" scope: "prototype"}
+"templateOptions"}
+<map}
+<entry key: "width" value: "800"}
+<entry key: "height" value: "500"}
+<entry key: "speed" value: "600"}
+<entry key: "pagePadding" value: "10"}
+<entry key: "overlays" value: "false"}
+<entry key: "hovers" value: "false"}
+<entry key: "next" value: "#next_page_button"}
+<entry key: "prev" value: "#prev_page_button"}
+</map}
+}
+}
+
+{id: "BookGroup" class: "org.kuali.rice.krtrain.component.BookGroup" _parent: "Uif-VerticalBoxGroup"}
+"booklet"}
+{_parent: "Booklet"}
+}
+}
+
+{id: "Krtrain-BookPreview" _parent: "Uif-Page"}
+"items"}
+[
+{id: "next_page_button" _parent: "Uif-Link", href: "#"}
+{id: "prev_page_button" _parent: "Uif-Link", href: "#"}
+{id: "bookPreviewGroup" _parent: "BookGroup"}
+"items"}
+[
+{ _ref: "previewPage1"}
+{ _ref: "previewPage2"}
+{ _ref: "previewPage3"}
+]
+}
+}
+]
+}
+"cssClasses"}
+<list merge: "true"}
+"book_wrapper"
+]
+}
+}
+
+{id: "previewPage1" _parent: "Uif-VerticalBoxGroup"}
+"items"}
+[
+{_parent: "Uif-Image", source: "@{#ConfigProperties['application.url']}/images/k_usc.jpg"}
+{_parent: "Uif-HeaderOne", headerText: "Kuali @ USC"}
+{_parent: "Uif-Message"}
+"messageText"}
+"
+[p]USC is a contributing partner in the development of Kuali, a suite of software solutions,
+created by a consortium of universities to automate and integrate a broad spectrum of administrative
+processes.[/p]
+"
+}
+}
+]
+}
+}
+
+{id: "previewPage2" _parent: "Uif-VerticalBoxGroup"}
+"items"}
+[
+{_parent: "Uif-Image", source: "@{#ConfigProperties['application.url']}/images/k_cornell.jpg"}
+{_parent: "Uif-HeaderOne", headerText: "Kuali @ Cornell"}
+{_parent: "Uif-Message"}
+"messageText"}
+"
+[p]Cheers and confetti helped celebrate Cornell's launch of the Kuali Financial System (KFS)
+in a ceremony July 1 in the East Hill Office Building. [/p]
+"
+}
+}
+]
+}
+}
+
+{id: "previewPage3" _parent: "Uif-VerticalBoxGroup"}
+"items"}
+[
+{_parent: "Uif-Image", source: "@{#ConfigProperties['application.url']}/images/k_iu.png"}
+{_parent: "Uif-HeaderOne", headerText: "Kuali @ IU"}
+{_parent: "Uif-Message"}
+"messageText"}
+"
+[p]The Kuali Financial System (KFS) is a comprehensive suite of functionality that will serve
+all of Indiana University’s financial business needs. Kuali Financial System’s design is based
+upon the proven functionality of Indiana University’s Financial Information System (FIS) and
+Electronic Procurement and Invoicing Center (EPIC).[/p]
+"
+}
+}
+]
+}
+}
+
+
+{id: "addAwardDialog" _parent: "Uif-DialogGroup", headerText: "Please Select an Award"
+p:responseInputField.propertyName: "awardToAdd"}
+"availableResponses"}
+[
+{_parent: "Uif-KeyLabelPair", key: "N", value: "Newbery"}
+{_parent: "Uif-KeyLabelPair", key: "C", value: "Caldecott"}
+{_parent: "Uif-KeyLabelPair", key: "B", value: "Batchedler"}
+{_parent: "Uif-KeyLabelPair", key: "L", value: "Balpre"}
+{_parent: "Uif-KeyLabelPair", key: "R", value: "Carnegie"}
+{_parent: "Uif-KeyLabelPair", key: "G", value: "Geisel"}
+]
+}
+}
+
+{id: "saveOverrideDialog" _parent: "Uif-Yes-No-DialogGroup"
+p:headerText: "Book '@{book.title}' already exists. Do you wish to override the entry?"}
+}
+
+</beans}
