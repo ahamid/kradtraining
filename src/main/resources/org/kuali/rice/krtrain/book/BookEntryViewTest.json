@@ -1,7 +1,5 @@
 {
 
-    "Uif-FormView": { _class: "java.lang.String" },
-
     "Krtrain-BookEntryViewMenu": {
         _parent: "Uif-FormView",
         headerText: "Book Entry Menu",
