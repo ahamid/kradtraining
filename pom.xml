@@ -574,6 +574,12 @@
                 <version>1.9.11</version>
             </dependency>
 
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>${mysql.jdbc.artifactId}</artifactId>
+          <version>${mysql.jdbc.version}</version>
+      </dependency>
+
 
   </dependencies>
 </project>

@@ -19,6 +19,7 @@
                 <value>org/kuali/rice/krtrain/BaseDefinitionOverrides.xml</value>
                 <value>org/kuali/rice/krtrain/book</value>
                 <value>org/kuali/rice/krtrain/KrtrainMenuView.xml</value>
+                <value>org/kuali/rice/krtrain/book/BookEntryViewTest.json</value>
             </list>
         </property>
         <property name="databaseRepositoryFilePaths">

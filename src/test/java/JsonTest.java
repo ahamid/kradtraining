@@ -1,7 +1,12 @@
 import org.junit.Assert;
 import org.junit.Test;
+import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
+import org.kuali.rice.krad.service.DataDictionaryService;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.spring.JsonApplicationContext;
 import org.kuali.rice.krad.uif.field.InputField;
+import org.kuali.rice.krad.uif.util.ComponentFactory;
+import org.kuali.rice.krad.uif.view.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractRefreshableConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -32,7 +37,8 @@ public class JsonTest {
         Assert.assertEquals("childB", childB.getString());
     }
 
-    private static String[] KRAD_DD = {
+   /* private static String[] KRAD_DD = {
+        "classpath:BootStrapSpringBeans.xml",
         "classpath:org/kuali/rice/kns/bo/datadictionary/DataDictionaryBaseTypes.xml",
         "classpath:org/kuali/rice/krad/bo/datadictionary/AdHocRoutePerson.xml",
         "classpath:org/kuali/rice/krad/bo/datadictionary/AdHocRouteWorkgroup.xml",
@@ -62,16 +68,23 @@ public class JsonTest {
         "classpath:org/kuali/rice/krad/uif/UifRiceDefinitions.xml",
         "classpath:org/kuali/rice/krad/uif/UifElementDefinitions.xml",
         "classpath:org/kuali/rice/krad/uif/UifInitiateDocumentInfoDefinitions.xml",
-    };
+    };  */
 
     @Test
     public void test_krad_dom() {
-        ApplicationContext krad = new ClassPathXmlApplicationContext(KRAD_DD);
+        ApplicationContext krad = new ClassPathXmlApplicationContext("classpath:BootStrapSpringBeans.xml");
+
+        /*ApplicationContext krad = new ClassPathXmlApplicationContext(KRAD_DD);
         JsonApplicationContext ac = new JsonApplicationContext(krad);
         ac.setFormat(JsonApplicationContext.JsonFormat.CONCISE);
         ac.setConfigLocation("classpath:org/kuali/rice/krtrain/book/BookEntryViewTest.json");
         ac.refresh();
 
-        //Assert.assertEquals(InputField.class, ac.getBean("averageReview").getClass());
+        Assert.assertEquals(InputField.class, ac.getBean("averageReview").getClass());   */
+        DataDictionaryService dds = (DataDictionaryService) GlobalResourceLoader.getService("dataDictionaryService");
+        View view = dds.getViewById("Krtrain-BookEntryViewMenu");
+        Assert.assertNotNull(view);
+        System.err.println(view);
+        Assert.assertEquals("Book Entry Menu IN JSON", view.getHeaderText());
     }
 }

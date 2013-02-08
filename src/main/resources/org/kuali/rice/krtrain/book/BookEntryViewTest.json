@@ -2,16 +2,14 @@
 
     "Krtrain-BookEntryViewMenu": {
         _parent: "Uif-FormView",
-        headerText: "Book Entry Menu",
+        headerText: "Book Entry Menu IN JSON",
         readOnly: "@{format.readOnlyView}",
         dialogs: [
-            { _ref: "addAwardDialog" },
-            { _ref: "saveOverrideDialog" }
+
         ],
         items: [
             { _ref: "Krtrain-BookEntryPage1" },
-            { _ref: "Krtrain-BookEntryPage2" },
-            { _ref: "Krtrain-BookPreview" }
+            { _ref: "Krtrain-BookEntryPage2" }
         ],
         navigation: { _ref: "Krtrain-BookEntryMenuNavigation" },
         formClass: "org.kuali.rice.krtrain.book.BookEntryForm",
@@ -102,11 +100,7 @@
 
             { _ref: "ratings" },
 
-            { _ref: "formats" },
-
-            { _ref: "publisherGroup" },
-
-            { _ref: "authorGroup" }
+            { _ref: "formats" }
         ]
     },
 
@@ -118,9 +112,6 @@
     "Krtrain-BookEntryPage2": {
         _parent: "Uif-Page",
         items: [
-            { _ref: "chapters" },
-            { _ref: "relatedBooks" },
-            { _ref: "index" }
         ]
     },
 
@@ -154,11 +145,11 @@
                 { _id: "title", _parent: "Uif-InputField", propertyName: "title", label: "Book Title"},
                 { _id: "typeCode", _parent: "Uif-InputField", propertyName: "typeCode", dictionaryObjectEntry: "org.kuali.rice.krtrain.book.BookType",
                  propertyNamesForAdditionalDisplay: "bookType.description",
-                    quickfinder: {_parent: "Uif-QuickFinder", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType", fieldConversions: "typeCode:typeCode",
+                    quickfinder: {_parent: "Uif-QuickFinder", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType", fieldConversions: "typeCode:typeCode" },
                         "inquiry":
                             {_parent: "Uif-Inquiry", dataObjectClassName: "org.kuali.rice.krtrain.book.BookType"
                             , inquiryParameters: "typeCode:typeCode", enableDirectInquiry: "true"}
-                    }
+
                 },
                 { _id: "attributeQuery",
                   _parent: "Uif-AttributeQueryConfig"
@@ -226,7 +217,7 @@
                 }
             ]
     },
-    
+
     "ratings": {
         _parent: "Uif-GridSection", headerText: "Ratings", render: "@{!format.hideRatings}",
         items:
@@ -390,18 +381,21 @@
                                     {_parent: "Uif-InputField-LabelTop", propertyName: "publicationDate",
                                         label: "Publisher Date",
                                         "control":
-                                            {_parent: "Uif-DateControl"},
-                                        "datePicker":
-                                            {_parent: "Uif-DatePicker"},
-                                        "templateOptions": {
-                                            map: {
-                                               merge: "true",
-                                               values: {
-                                                 "changeYear": "false",
-                                                 "maxDate": "+3m"
+                                            {_parent: "Uif-DateControl",
+                                            "datePicker":
+                                                {
+                                                    parent: "Uif-DatePicker",
+                                                    "templateOptions": {
+                                                        map: {
+                                                           merge: "true",
+                                                           values: {
+                                                             "changeYear": "false",
+                                                             "maxDate": "+3m"
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
-                                        }
                                     }
                                 ]
                         },
