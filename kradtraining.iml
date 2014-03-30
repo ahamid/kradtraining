@@ -8,42 +8,14 @@
         </descriptors>
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/overlays/org.kuali.rice.rice-web-2.3.0-SNAPSHOT" relative="/" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset1" name="KRAD  Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/book/BookEntryView.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifActionDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifConfigurationDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifControlDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifDocumentDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifElementDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifFieldDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifGroupDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifHeaderFooterDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifIncidentReportDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifInitiateDocumentInfoDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifInquiryDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifLayoutManagerDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifLookupDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifMaintenanceDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifRiceDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifViewPageDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.2.1-SNAPSHOT/rice-krad-web-framework-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifWidgetDefinitions.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/DataDictionaryBaseTypes.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/AttributeReferenceDummy.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/DocumentHeader.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/kew/bo/datadictionary/DocumentType.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/Attachment.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/BusinessObjectAttributeEntry.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/Note.xml</file>
-          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.2.1-SNAPSHOT/rice-impl-2.2.1-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/NoteType.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/book/BookEntryView_ignore.xml_ignore</file>
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/KrtrainMenuView.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/book/BookType.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/labs/Lab-Labels.xml</file>
@@ -63,6 +35,32 @@
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/labs/Lab-Dialogs.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/labs/Lab-Beans.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/labs/Lab-Widgets.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/KradTrainingModuleBeans.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/BootStrapSpringBeans.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.3.0-SNAPSHOT/rice-impl-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/AttributeReferenceDummy.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.3.0-SNAPSHOT/rice-impl-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/AttributeReferenceElements.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.3.0-SNAPSHOT/rice-impl-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/BusinessObjectAttributeEntry.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-impl/2.3.0-SNAPSHOT/rice-impl-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/bo/datadictionary/DataDictionaryBaseTypes.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifActionDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifConfigurationDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifControlDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifDocumentDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifElementDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifFieldDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifGroupDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifHeaderFooterDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifIncidentReportDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifInitiateDocumentInfoDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifInquiryDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifLayoutManagerDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifLookupDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifMaintenanceDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifRiceDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifViewPageDefinitions.xml</file>
+          <file>jar://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar!/org/kuali/rice/krad/uif/UifWidgetDefinitions.xml</file>
+          <file>file://$MAVEN_REPOSITORY$/org/kuali/rice/rice-krad-web-framework/2.3.0-SNAPSHOT/rice-krad-web-framework-2.3.0-SNAPSHOT.jar</file>
+          <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/book/BookTypeViews.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/org/kuali/rice/krtrain/book/BookTypeViews.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -74,6 +72,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -146,8 +145,8 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:3.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:3.1.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.18" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.8" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.8" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.11" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.11" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.6.8" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.8" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: commons-digester:commons-digester:2.0" level="project" />
@@ -236,6 +235,8 @@
     <orderEntry type="library" scope="RUNTIME" name="Maven: no.geosoft:filemonitor:1.0-kuali" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-xc:1.9.11" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.18" level="project" />
   </component>
 </module>
 
